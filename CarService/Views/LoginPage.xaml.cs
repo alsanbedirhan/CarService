@@ -48,6 +48,9 @@ public partial class LoginPage : ContentPage
         {
             return;
         }
+        txtMail.Text = "";
+        txtPsw.Text = "";
+        chkPsw.IsChecked = false;
         WeakReferenceMessenger.Default.Send("NEEDREGISTER");
     }
 

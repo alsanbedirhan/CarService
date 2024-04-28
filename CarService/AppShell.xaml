@@ -82,6 +82,12 @@
     <FlyoutItem FlyoutItemIsVisible="False">
         <ShellContent Route="RegisterPage" ContentTemplate="{DataTemplate local:RegisterPage}" />
     </FlyoutItem>
+    <FlyoutItem IsEnabled="{Binding IsAuthorized}" Title="Personel Listesi" Icon="icon_about.png">
+        <ShellContent Route="UsersPage" ContentTemplate="{DataTemplate local:UsersPage}" />
+    </FlyoutItem>
+    <FlyoutItem FlyoutItemIsVisible="False">
+        <ShellContent Route="UserWorkPage" ContentTemplate="{DataTemplate local:UserWorkPage}" />
+    </FlyoutItem>
 
     <Shell.FlyoutFooter>
         <Label x:Name="txtUserName" Text="Giriş Yapmalısınız" HorizontalTextAlignment="Center" BackgroundColor="{StaticResource Primary}" TextColor="White" Padding="10"/>

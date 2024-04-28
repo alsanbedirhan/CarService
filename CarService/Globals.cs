@@ -12,7 +12,8 @@ namespace CarService
     }
     public static class GlobalValues
     {
-        public static string ServerIP = "http://172.20.10.2:5209/";
+        //public static string ServerIP = "http://172.20.10.2:5209/";
+        public static string ServerIP = "http://192.168.1.104:5209/";
         public static string BaseURL = ServerIP + "api/";
     }
     public class ResultModel<T> : ResultModel
