@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarService.Views.LoginPage"
+             Title="Giriş Yap">
+
+    <ScrollView>
+        <StackLayout Orientation="Vertical" VerticalOptions="Center"
+         Padding="20,0"
+         Spacing="10">
+            <Image
+             Source="wallpaper.png"
+             HeightRequest="185"
+             Aspect="AspectFit" />
+
+            <ActivityIndicator 
+             HorizontalOptions="CenterAndExpand"
+             VerticalOptions="CenterAndExpand"
+             IsVisible="False"
+             IsRunning="True"
+             Color="Red"
+             Scale="2"
+             x:Name="LoadingIndicator"/>
+
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" >
+                <Label Text="Mail: " VerticalOptions="Center"/>
+                <Entry x:Name="txtMail" HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+
+            <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" >
+                <Label Text="Şifre " VerticalOptions="Center"/>
+                <Entry x:Name="txtPsw" IsPassword="True" HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Şifreyi göster" VerticalOptions="Center" />
+                <CheckBox x:Name="chkPsw" IsChecked="False" CheckedChanged="chkPsw_CheckedChanged"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Button Margin="0,0,5,0"
+             Text="Giriş Yap" 
+             HorizontalOptions="FillAndExpand" Clicked="Login_Clicked"/>
+                
+                <Button Margin="5,0,0,0"
+             Text="Kayıt Ol" 
+             HorizontalOptions="FillAndExpand" Clicked="Register_Clicked"/>
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
