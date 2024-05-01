@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using Request_API;
 
 namespace CarService
 {
@@ -10,7 +11,7 @@ namespace CarService
             InitializeComponent();
             WeakReferenceMessenger.Default.Register<ErrorProgess>(this, async (x, sender) =>
                 await DisplayAlert("Hata", string.IsNullOrEmpty(sender.Message) ? "Hata oluştu" : sender.Message, "OK"));
-            Parameters.AppVersion = VersionTracking.CurrentVersion;
+            //Parameters.AppVersion = VersionTracking.CurrentVersion;
         }
 
         private void Shell_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

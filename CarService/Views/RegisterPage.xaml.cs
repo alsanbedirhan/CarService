@@ -9,7 +9,12 @@ public partial class RegisterPage : ContentPage
     {
         InitializeComponent();
     }
-    private async void Register_Clicked(object sender, EventArgs e)
+    private void Register_Clicked(object sender, EventArgs e)
+    {
+        Register();
+    }
+
+    async void Register()
     {
         if (LoadingIndicator.IsVisible)
         {
@@ -40,8 +45,7 @@ public partial class RegisterPage : ContentPage
             return;
         }
         LoadingIndicator.IsVisible = true;
-        var r = new Request();
-        var t = await r.Register(txtName.Text, txtSurname.Text, txtMail.Text, txtPsw.Text);
+        var t = await RegisterRequest.Register(txtName.Text, txtSurname.Text, txtMail.Text, txtPsw.Text);
         LoadingIndicator.IsVisible = false;
         if (t.Status)
         {
@@ -57,5 +61,10 @@ public partial class RegisterPage : ContentPage
     private void chkPsw_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         txtPsw.IsPassword = !chkPsw.IsChecked;
+    }
+
+    private void txtPsw_Completed(object sender, EventArgs e)
+    {
+        Register();
     }
 }

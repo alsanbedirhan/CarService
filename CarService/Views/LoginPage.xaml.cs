@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.Messaging;
 using CarService.Requests;
+using Request_API;
 
 namespace CarService.Views;
 
@@ -9,7 +10,12 @@ public partial class LoginPage : ContentPage
     {
         InitializeComponent();
     }
-    private async void Login_Clicked(object sender, EventArgs e)
+    private void Login_Clicked(object sender, EventArgs e)
+    {
+        Login();
+    }
+
+    async void Login()
     {
         if (LoadingIndicator.IsVisible)
         {
@@ -26,14 +32,14 @@ public partial class LoginPage : ContentPage
             return;
         }
         LoadingIndicator.IsVisible = true;
-        var r = new Request();
-        var t = await r.Login(txtMail.Text, txtPsw.Text);
+        var t = await LoginRequest.Login(txtMail.Text, txtPsw.Text);
         LoadingIndicator.IsVisible = false;
         if (t.Status)
         {
             txtMail.Text = "";
             txtPsw.Text = "";
             chkPsw.IsChecked = false;
+            Parameters.ActiveUser = t.Data;
             WeakReferenceMessenger.Default.Send("LOGINOK");
         }
         //else if (t.StringValue1.StartsWith("VERSION:") && await DisplayAlert("Soru", "Uygulamanýnz güncel deðildir, güncellemek istiyor musunuz?", "Evet", "Hayýr"))
@@ -57,5 +63,10 @@ public partial class LoginPage : ContentPage
     private void chkPsw_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         txtPsw.IsPassword = !chkPsw.IsChecked;
+    }
+
+    private void txtPsw_Completed(object sender, EventArgs e)
+    {
+        Login();
     }
 }

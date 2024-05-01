@@ -38,7 +38,7 @@
 
             <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" >
                 <Label Text="Şifre: " VerticalOptions="Center"/>
-                <Entry x:Name="txtPsw" IsPassword="True" HorizontalOptions="FillAndExpand"/>
+                <Entry x:Name="txtPsw" IsPassword="True" HorizontalOptions="FillAndExpand" Completed="txtPsw_Completed"/>
             </StackLayout>
 
             <StackLayout Orientation="Horizontal">

@@ -82,7 +82,7 @@
     <FlyoutItem FlyoutItemIsVisible="False">
         <ShellContent Route="RegisterPage" ContentTemplate="{DataTemplate local:RegisterPage}" />
     </FlyoutItem>
-    <FlyoutItem IsEnabled="{Binding IsAuthorized}" Title="Personel Listesi" Icon="icon_about.png">
+    <FlyoutItem IsVisible="{Binding IsAuthorized}" Title="Personel Listesi" Icon="icon_about.png">
         <ShellContent Route="UsersPage" ContentTemplate="{DataTemplate local:UsersPage}" />
     </FlyoutItem>
     <FlyoutItem FlyoutItemIsVisible="False">

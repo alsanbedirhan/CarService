@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using Request_API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace CarService.ViewModels
         public bool IsAuthorized { get => _IsAuthorized; set => SetProperty(ref _IsAuthorized, value); }
         public AppViewModel()
         {
-            WeakReferenceMessenger.Default.Register<string>(this, (x, y) =>
+            WeakReferenceMessenger.Default.Register<string>(this, async (x, y) =>
             {
                 switch (y)
                 {
@@ -27,7 +28,7 @@ namespace CarService.ViewModels
                             IsLogin = true;
                             IsCustomer = Parameters.ActiveUser.UserType == "C";
                             IsAuthorized = Parameters.ActiveUser.UserType == "A";
-                            Shell.Current.GoToAsync("//AboutPage");
+                            await Shell.Current.GoToAsync("//AboutPage");
                         }
                         else
                         {
@@ -41,14 +42,14 @@ namespace CarService.ViewModels
                         IsCustomer = false;
                         IsAuthorized = false;
                         Parameters.ActiveUser = null;
-                        Shell.Current.GoToAsync("//LoginPage");
+                        await Shell.Current.GoToAsync("//LoginPage");
                         break;
                     case "NEEDREGISTER":
                         IsLogin = false;
                         IsCustomer = false;
                         IsAuthorized = false;
                         Parameters.ActiveUser = null;
-                        Shell.Current.GoToAsync("//RegisterPage");
+                        await Shell.Current.GoToAsync("//RegisterPage");
                         break;
                 }
             });
