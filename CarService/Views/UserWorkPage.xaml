@@ -10,6 +10,12 @@
         <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
         <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
             <StackLayout Orientation="Horizontal">
+                <Label Text="Kullanıcı Tipi: " VerticalTextAlignment="Center"/>
+                <Picker x:Name="pTip" HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+        </Border>
+        <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
+            <StackLayout Orientation="Horizontal">
                 <Label Text="Ad: " VerticalTextAlignment="Center"/>
                 <Entry x:Name="txtAd" HorizontalOptions="FillAndExpand"/>
             </StackLayout>
@@ -18,6 +24,19 @@
             <StackLayout Orientation="Horizontal">
                 <Label Text="Soyad: " VerticalTextAlignment="Center"/>
                 <Entry x:Name="txtSoyad" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+        </Border>
+        <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Mail: " VerticalTextAlignment="Center"/>
+                <Entry x:Name="txtMail" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+        </Border>
+        <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Şifre: " VerticalTextAlignment="Center"/>
+                <Entry x:Name="txtSifre" HorizontalOptions="FillAndExpand" />
+                <CheckBox x:Name="chkSifre" CheckedChanged="chkSifre_CheckedChanged"/>
             </StackLayout>
         </Border>
     </VerticalStackLayout>

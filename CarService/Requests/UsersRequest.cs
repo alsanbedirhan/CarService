@@ -11,13 +11,13 @@ namespace CarService.Requests
 {
     public class UsersRequest
     {
-        public static async Task<RequestModel<List<Users>>> AllUser(string ad, string soyad)
+        public static async Task<RequestModel<List<Users>>> AllUser(string ad, string soyad, string usertype)
         {
-            return await new Request().Post<List<Users>>("users/allusers", JsonConvert.SerializeObject(new { ad, soyad }));
+            return await new Request().Post<List<Users>>("users/allusers", JsonConvert.SerializeObject(new { ad, soyad, usertype }));
         }
-        public static async Task<RequestModel> WorkUser(string ad, string soyad, decimal id)
+        public static async Task<RequestModel> WorkUser(string ad, string soyad, decimal id, string usertype)
         {
-            return await new Request().Post("users/workuser", JsonConvert.SerializeObject(new { ad, soyad, id }));
+            return await new Request().Post("users/workuser", JsonConvert.SerializeObject(new { ad, soyad, id, usertype }));
         }
     }
 }

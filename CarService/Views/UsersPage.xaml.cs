@@ -1,6 +1,7 @@
 using AndroidX.Lifecycle;
 using CarService.Requests;
 using CarService.ViewModels;
+using Microsoft.Maui.Controls;
 
 namespace CarService.Views;
 
@@ -13,6 +14,23 @@ public partial class UsersPage : ContentPage
         InitializeComponent();
         viewModel = new UsersViewModel();
         BindingContext = viewModel;
+        pTip.Items.Add("Hepsi");
+        pTip.Items.Add("Yetkili");
+        pTip.Items.Add("Normal");
+    }
+    protected override void OnSizeAllocated(double width, double height)
+    {
+        base.OnSizeAllocated(width, height);
+        if (width > height)
+        {
+            view.ItemsLayout = new GridItemsLayout(2, ItemsLayoutOrientation.Vertical);
+            sfilter.Orientation = StackOrientation.Horizontal;
+        }
+        else
+        {
+            view.ItemsLayout = new GridItemsLayout(1, ItemsLayoutOrientation.Vertical);
+            sfilter.Orientation = StackOrientation.Vertical;
+        }
     }
     protected override void OnAppearing()
     {
@@ -32,7 +50,7 @@ public partial class UsersPage : ContentPage
         }
         viewModel.ListSource.Clear();
         LoadingIndicator.IsVisible = true;
-        var t = await UsersRequest.AllUser(sbAd?.Text?.Trim() ?? "", sbSoyad?.Text?.Trim() ?? "");
+        var t = await UsersRequest.AllUser(txtAd?.Text?.Trim() ?? "", txtSoyad?.Text?.Trim() ?? "", (pTip.SelectedIndex == 1 ? "A" : (pTip.SelectedIndex == 2 ? "R" : "")));
         LoadingIndicator.IsVisible = false;
         if (t.Status)
         {
@@ -49,13 +67,10 @@ public partial class UsersPage : ContentPage
         base.OnDisappearing();
     }
 
-    private void Yenile_Clicked(object sender, EventArgs e)
-    {
-        MainThread.BeginInvokeOnMainThread(async () =>
-        {
-            await SendRequest();
-        });
-    }
+    //private void Yenile_Clicked(object sender, EventArgs e)
+    //{
+
+    //}
 
     private async void Add_Clicked(object sender, EventArgs e)
     {
@@ -63,17 +78,17 @@ public partial class UsersPage : ContentPage
         await Shell.Current.GoToAsync("//UserWorkPage");
     }
 
-    private void Ad_SearchButtonPressed(object sender, EventArgs e)
-    {
-        viewModel.ListSource.Clear();
-        alldata.Where(x => x.Ad.ToLower().Contains(sbAd?.Text?.ToLower().Trim() ?? "")).ToList().ForEach(viewModel.ListSource.Add);
-    }
+    //private void Ad_SearchButtonPressed(object sender, EventArgs e)
+    //{
+    //    viewModel.ListSource.Clear();
+    //    alldata.Where(x => x.Ad.ToLower().Contains(sbAd?.Text?.ToLower().Trim() ?? "")).ToList().ForEach(viewModel.ListSource.Add);
+    //}
 
-    private void Soyad_SearchButtonPressed(object sender, EventArgs e)
-    {
-        viewModel.ListSource.Clear();
-        alldata.Where(x => x.Soyad.ToLower().Contains(sbSoyad?.Text?.ToLower().Trim() ?? "", StringComparison.OrdinalIgnoreCase)).ToList().ForEach(viewModel.ListSource.Add);
-    }
+    //private void Soyad_SearchButtonPressed(object sender, EventArgs e)
+    //{
+    //    viewModel.ListSource.Clear();
+    //    alldata.Where(x => x.Soyad.ToLower().Contains(sbSoyad?.Text?.ToLower().Trim() ?? "", StringComparison.OrdinalIgnoreCase)).ToList().ForEach(viewModel.ListSource.Add);
+    //}
 
     private async void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -81,10 +96,26 @@ public partial class UsersPage : ContentPage
         {
             return;
         }
-        UserWorkPage._ad = s.Ad;
-        UserWorkPage._soyad = s.Soyad;
-        UserWorkPage._id = s.Idno;
+        UserWorkPage._model = s;
         UserWorkPage._title = s.Idno.ToString();
         await Shell.Current.GoToAsync("//UserWorkPage");
+    }
+
+    //private void pTip_SelectedIndexChanged(object sender, EventArgs e)
+    //{
+    //    if (pTip.SelectedIndex < 0)
+    //    {
+    //        return;
+    //    }
+    //    viewModel.ListSource.Clear();
+    //    alldata.Where(x => (pTip.SelectedIndex == 1 ? x.Tip == "A" : (pTip.SelectedIndex == 2 ? x.Tip == "R" : true))).ToList().ForEach(viewModel.ListSource.Add);
+    //}
+
+    private void Search_Clicked(object sender, EventArgs e)
+    {
+        MainThread.BeginInvokeOnMainThread(async () =>
+        {
+            await SendRequest();
+        });
     }
 }

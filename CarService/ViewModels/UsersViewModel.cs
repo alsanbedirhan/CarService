@@ -17,6 +17,8 @@ namespace CarService.ViewModels
         public decimal Idno { get; set; }
         public string Ad { get; set; }
         public string Soyad { get; set; }
+        public string Mail { get; set; }
+        public string Tip { get; set; }
         public string AdSoyad => string.Concat(Ad, " ", Soyad);
         public DateTime Cdate { get; set; }
     }

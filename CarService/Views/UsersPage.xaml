@@ -5,42 +5,60 @@
              xmlns:vm="clr-namespace:CarService.ViewModels"
              Title="Personeller">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="YENİLE" Clicked="Yenile_Clicked" />
+        <!--<ToolbarItem Text="YENİLE" Clicked="Yenile_Clicked" />-->
+        <ToolbarItem Text="YENİLE" Clicked="Search_Clicked" />
         <ToolbarItem Text="EKLE" Clicked="Add_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.BindingContext>
         <vm:UsersViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
-            <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
-            <VerticalStackLayout>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".5*"/>
-                        <ColumnDefinition Width=".5*"/>
-                    </Grid.ColumnDefinitions>
 
-                    <SearchBar x:Name="sbAd" Grid.Row="0" Grid.Column="0" Placeholder="Ad" SearchButtonPressed="Ad_SearchButtonPressed"/>
-                    <SearchBar x:Name="sbSoyad" Grid.Row="0" Grid.Column="1" Placeholder="Soyad" SearchButtonPressed="Soyad_SearchButtonPressed"/>
-                </Grid>
-            </VerticalStackLayout>
-            <CollectionView ItemsLayout="VerticalGrid, 2" ItemsSource="{Binding ListSource}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Border BackgroundColor="GreenYellow" Margin="5,2,5,2">
-                            <VerticalStackLayout HorizontalOptions="Center">
-                                <HorizontalStackLayout Padding="0,5,0,5">
-                                    <Label Text="{Binding Idno}" VerticalTextAlignment="Center" TextColor="Red"/>
-                                    <Label Text=" | "  VerticalTextAlignment="Center"/>
-                                    <Label Text="{Binding AdSoyad}" FontSize="20" FontAttributes="Bold"/>
-                                </HorizontalStackLayout>
-                                <Label Text="{Binding Cdate}" HorizontalTextAlignment="Center"/>
-                            </VerticalStackLayout>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
+
+        <ScrollView Orientation="Vertical">
+            <StackLayout Orientation="Vertical">
+                <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
+                <Border StrokeThickness="5" Padding="5" Margin="0,0,0,10">
+                    <StackLayout x:Name="sfilter" HorizontalOptions="FillAndExpand">
+                        <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="5">
+                        <Label Text="Ad: " VerticalTextAlignment="Center"/>
+                        <Entry x:Name="txtAd" HorizontalOptions="FillAndExpand" Placeholder="Ad"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="5">
+                        <Label Text="Soyad: " VerticalTextAlignment="Center"/>
+                        <Entry x:Name="txtSoyad" HorizontalOptions="FillAndExpand" Placeholder="Soyad"/>
+                    </StackLayout>
+                    <StackLayout x:Name="stip" Orientation="Horizontal" MinimumWidthRequest="125" Margin="5">
+                        <Picker x:Name="pTip" HorizontalOptions="FillAndExpand" Title="Tip"/>
+                    </StackLayout>-->
+                        <Entry x:Name="txtAd" HorizontalOptions="FillAndExpand" Placeholder="Ad"/>
+                        <Entry x:Name="txtSoyad" HorizontalOptions="FillAndExpand" Placeholder="Soyad"/>
+                        <Picker x:Name="pTip" Title="Tip" MinimumWidthRequest="125"/>
+                        <!--<Button Text="Yenile" Clicked="Search_Clicked" Margin="20,20,20,0"/>-->
+                    </StackLayout>
+                </Border>
+                <CollectionView x:Name="view" ItemsSource="{Binding ListSource}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BackgroundColor="AliceBlue">
+                                
+                                <StackLayout Orientation="Vertical" HorizontalOptions="Center">
+                                    <StackLayout Orientation="Horizontal" Padding="0,5,0,5" HorizontalOptions="CenterAndExpand">
+                                        <Label Text="{Binding Idno}" VerticalTextAlignment="Center" TextColor="Red"/>
+                                        <Label Text=" | "  VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding AdSoyad}" FontSize="20" FontAttributes="Bold"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" Padding="0,5,0,5" HorizontalOptions="CenterAndExpand">
+                                        <Label Text="{Binding Tip}" VerticalTextAlignment="Center" TextColor="Red"/>
+                                        <Label Text=" | "  VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding Mail}" FontSize="20" FontAttributes="Bold"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
