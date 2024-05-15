@@ -28,6 +28,7 @@ public partial class UserWorkPage : ContentPage
                 txtAd.Text = _model.Ad;
                 txtSoyad.Text = _model.Soyad;
                 txtMail.Text = _model.Mail;
+                txtMail.IsEnabled = false;
                 pTip.SelectedItem = MauiProgram._UserTypes.FirstOrDefault(x => x.Code == _model.Tip);
             }
             else
@@ -36,6 +37,7 @@ public partial class UserWorkPage : ContentPage
                 txtAd.Text = "";
                 txtSoyad.Text = "";
                 txtMail.Text = "";
+                txtMail.IsEnabled = true;
             }
             _toolbar = new ToolbarItem { Text = "GERÝ" };
             _toolbar.Clicked += Back_Clicked;
@@ -48,6 +50,7 @@ public partial class UserWorkPage : ContentPage
             txtSoyad.Text = Parameters.ActiveUser.Soyad;
             txtMail.Text = Parameters.ActiveUser.Mail;
             pTip.SelectedItem = MauiProgram._UserTypes.FirstOrDefault(x => x.Code == Parameters.ActiveUser.UserType);
+            txtMail.IsEnabled = false;
         }
     }
 
@@ -68,6 +71,7 @@ public partial class UserWorkPage : ContentPage
         txtAd.Text = "";
         txtSoyad.Text = "";
         txtMail.Text = "";
+        txtMail.IsEnabled = false;
         _model = null;
     }
 
@@ -97,8 +101,12 @@ public partial class UserWorkPage : ContentPage
             await DisplayAlert("Uyarý", "Kullanýcý türünü seçmelisiniz", "OK");
             return;
         }
-        var t = await UsersRequest.WorkUser(txtAd.Text, txtSoyad.Text, (_model != null ? _model.Idno : (Parameters.ActiveUser != null ? Parameters.ActiveUser.UserId : 0m)),
-            types.Code, txtMail.Text);
+        if (!await DisplayAlert("Soru", "Kayýt iþlemi gerçekleþtirilecektir, devam etmek istiyor musunuz?", "YES", "NO"))
+        {
+            return;
+        }
+        var t = await UsersRequest.WorkUser(txtAd.Text, txtSoyad.Text, (_model != null ? _model.Idno :
+            (Parameters.ActiveUser?.UserId ?? 0m)), types.Code, txtMail.Text);
         if (t.Status)
         {
             await DisplayAlert("Bilgi", "Ýþlem baþarýlý", "OK");
