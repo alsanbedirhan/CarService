@@ -32,12 +32,5 @@
                 <Entry x:Name="txtMail" HorizontalOptions="FillAndExpand" />
             </StackLayout>
         </Border>
-        <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Şifre: " VerticalTextAlignment="Center"/>
-                <Entry x:Name="txtSifre" HorizontalOptions="FillAndExpand" />
-                <CheckBox x:Name="chkSifre" CheckedChanged="chkSifre_CheckedChanged"/>
-            </StackLayout>
-        </Border>
     </VerticalStackLayout>
 </ContentPage>

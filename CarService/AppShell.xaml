@@ -85,6 +85,9 @@
     <FlyoutItem IsVisible="{Binding IsAuthorized}" Title="Personel Listesi" Icon="icon_about.png">
         <ShellContent Route="UsersPage" ContentTemplate="{DataTemplate local:UsersPage}" />
     </FlyoutItem>
+    <FlyoutItem IsVisible="{Binding IsLogin}" Title="Profilim" Icon="icon_about.png">
+        <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:UserWorkPage}" />
+    </FlyoutItem>
     <FlyoutItem FlyoutItemIsVisible="False">
         <ShellContent Route="UserWorkPage" ContentTemplate="{DataTemplate local:UserWorkPage}" />
     </FlyoutItem>

@@ -2,6 +2,7 @@ using AndroidX.Lifecycle;
 using CarService.Requests;
 using CarService.ViewModels;
 using Microsoft.Maui.Controls;
+using Request_API;
 
 namespace CarService.Views;
 
@@ -50,7 +51,7 @@ public partial class UsersPage : ContentPage
         }
         viewModel.ListSource.Clear();
         LoadingIndicator.IsVisible = true;
-        var t = await UsersRequest.AllUser(txtAd?.Text?.Trim() ?? "", txtSoyad?.Text?.Trim() ?? "", (pTip.SelectedIndex == 1 ? "A" : (pTip.SelectedIndex == 2 ? "R" : "")));
+        var t = await UsersRequest.AllUser(txtAd?.Text?.Trim() ?? "", txtSoyad?.Text?.Trim() ?? "", (pTip.SelectedItem?.ToString() ?? ""));
         LoadingIndicator.IsVisible = false;
         if (t.Status)
         {
@@ -74,7 +75,7 @@ public partial class UsersPage : ContentPage
 
     private async void Add_Clicked(object sender, EventArgs e)
     {
-        UserWorkPage._title = "Yeni Personel";
+        UserWorkPage._model = new Users();
         await Shell.Current.GoToAsync("//UserWorkPage");
     }
 
@@ -97,7 +98,6 @@ public partial class UsersPage : ContentPage
             return;
         }
         UserWorkPage._model = s;
-        UserWorkPage._title = s.Idno.ToString();
         await Shell.Current.GoToAsync("//UserWorkPage");
     }
 
