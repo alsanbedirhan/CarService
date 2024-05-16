@@ -9,15 +9,18 @@ namespace CarService.Views;
 public partial class UsersPage : ContentPage
 {
     UsersViewModel viewModel;
-    List<Users> alldata = new List<Users>();
     public UsersPage()
     {
         InitializeComponent();
         viewModel = new UsersViewModel();
         BindingContext = viewModel;
-        pTip.Items.Add("Hepsi");
-        pTip.Items.Add("Yetkili");
-        pTip.Items.Add("Normal");
+        pTip.BindingContext = new List<clsCombo>
+        {
+            new clsCombo { Code = "", Description = "Hepsi" },
+            new clsCombo { Code = "A", Description = "Yetkili" },
+            new clsCombo { Code = "R", Description = "Normal" }
+        };
+        pTip.ItemDisplayBinding = new Binding("Description");
     }
     protected override void OnSizeAllocated(double width, double height)
     {
@@ -36,7 +39,7 @@ public partial class UsersPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        alldata = new List<Users>();
+        pTip.SelectedIndex = 0;
         MainThread.BeginInvokeOnMainThread(async () =>
         {
             await SendRequest();
@@ -45,18 +48,17 @@ public partial class UsersPage : ContentPage
 
     async Task SendRequest()
     {
-        if (LoadingIndicator.IsVisible)
+        if (LoadingIndicator.IsVisible || pTip.SelectedItem is not clsCombo combo || combo == null)
         {
             return;
         }
         viewModel.ListSource.Clear();
         LoadingIndicator.IsVisible = true;
-        var t = await UsersRequest.AllUser(txtAd?.Text?.Trim() ?? "", txtSoyad?.Text?.Trim() ?? "", (pTip.SelectedItem?.ToString() ?? ""));
+        var t = await UsersRequest.AllUser(txtAd?.Text?.Trim() ?? "", txtSoyad?.Text?.Trim() ?? "", combo.Code);
         LoadingIndicator.IsVisible = false;
         if (t.Status)
         {
             t.Data.ForEach(viewModel.ListSource.Add);
-            alldata = viewModel.ListSource.ToList();
         }
     }
 
@@ -64,7 +66,9 @@ public partial class UsersPage : ContentPage
     {
         viewModel = new UsersViewModel();
         BindingContext = viewModel;
-        alldata = new List<Users>();
+        txtAd.Text = "";
+        txtSoyad.Text = "";
+        pTip.SelectedIndex = 0;
         base.OnDisappearing();
     }
 

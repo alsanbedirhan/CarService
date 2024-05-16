@@ -14,7 +14,8 @@ namespace CarService.ViewModels
         private bool _IsCustomer = false;
         private bool _IsAuthorized = false;
         public bool IsLogin { get => _IsLogin; set => SetProperty(ref _IsLogin, value); }
-        public bool IsCustomer { get => _IsCustomer; set => SetProperty(ref _IsCustomer, value); }
+        public bool IsCustomer { get => _IsCustomer; set { SetProperty(ref _IsCustomer, value); OnPropertyChanged(nameof(IsNotCustomer)); } }
+        public bool IsNotCustomer => IsLogin && !IsCustomer;
         public bool IsAuthorized { get => _IsAuthorized; set => SetProperty(ref _IsAuthorized, value); }
         public AppViewModel()
         {

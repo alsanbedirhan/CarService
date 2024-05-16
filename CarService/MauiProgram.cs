@@ -2,17 +2,17 @@
 
 namespace CarService
 {
-    public class UserTypes
+    public class clsCombo
     {
         public string Code { get; set; }
         public string Description { get; set; }
     }
     public static class MauiProgram
     {
-        public static List<UserTypes> _UserTypes = new List<UserTypes> {
-            new UserTypes {Code ="C",Description="Müşteri" },
-            new UserTypes {Code ="A",Description="Yetkili" },
-            new UserTypes {Code ="R",Description="Normal" }
+        public static List<clsCombo> _UserTypes = new List<clsCombo> {
+            new clsCombo {Code ="C",Description="Müşteri" },
+            new clsCombo {Code ="A",Description="Yetkili" },
+            new clsCombo {Code ="R",Description="Normal" }
         };
         public static MauiApp CreateMauiApp()
         {

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CarService.Views.UsersPage"
+             x:Class="CarService.Views.CarListPage"
              xmlns:vm="clr-namespace:CarService.ViewModels"
-             Title="Personeller">
+             Title="Araçlar">
     <ContentPage.ToolbarItems>
-        <!--<ToolbarItem Text="YENİLE" Clicked="Yenile_Clicked" />-->
         <ToolbarItem Text="YENİLE" Clicked="Search_Clicked" />
         <ToolbarItem Text="EKLE" Clicked="Add_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.BindingContext>
-        <vm:UsersViewModel />
+        <vm:CarListViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <ScrollView Orientation="Vertical">
@@ -18,38 +17,26 @@
                 <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
                 <Border StrokeThickness="5" Padding="5" Margin="0,0,0,10">
                     <StackLayout x:Name="sfilter" HorizontalOptions="FillAndExpand">
-                        <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="5">
-                        <Label Text="Ad: " VerticalTextAlignment="Center"/>
-                        <Entry x:Name="txtAd" HorizontalOptions="FillAndExpand" Placeholder="Ad"/>
-                    </StackLayout>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="5">
-                        <Label Text="Soyad: " VerticalTextAlignment="Center"/>
-                        <Entry x:Name="txtSoyad" HorizontalOptions="FillAndExpand" Placeholder="Soyad"/>
-                    </StackLayout>
-                    <StackLayout x:Name="stip" Orientation="Horizontal" MinimumWidthRequest="125" Margin="5">
-                        <Picker x:Name="pTip" HorizontalOptions="FillAndExpand" Title="Tip"/>
-                    </StackLayout>-->
-                        <Entry x:Name="txtAd" HorizontalOptions="FillAndExpand" Placeholder="Ad"/>
-                        <Entry x:Name="txtSoyad" HorizontalOptions="FillAndExpand" Placeholder="Soyad"/>
-                        <Picker x:Name="pTip" Title="Tip" MinimumWidthRequest="125"/>
-                        <!--<Button Text="Yenile" Clicked="Search_Clicked" Margin="20,20,20,0"/>-->
+                        <Entry x:Name="txtMarka" HorizontalOptions="FillAndExpand" Placeholder="Ad"/>
+                        <Entry x:Name="txtModel" HorizontalOptions="FillAndExpand" Placeholder="Soyad"/>
                     </StackLayout>
                 </Border>
                 <CollectionView x:Name="view" ItemsSource="{Binding ListSource}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Border BackgroundColor="AliceBlue">
-                                
                                 <StackLayout Orientation="Vertical" HorizontalOptions="Center">
                                     <StackLayout Orientation="Horizontal" Padding="0,5,0,5" HorizontalOptions="CenterAndExpand">
                                         <Label Text="{Binding Idno}" VerticalTextAlignment="Center" TextColor="Red"/>
                                         <Label Text=" | "  VerticalTextAlignment="Center"/>
-                                        <Label Text="{Binding AdSoyad}" FontSize="20" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Plaka}" FontSize="20" FontAttributes="Bold"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal" Padding="0,5,0,5" HorizontalOptions="CenterAndExpand">
-                                        <Label Text="{Binding Tip}" VerticalTextAlignment="Center" TextColor="Red"/>
+                                        <Label Text="{Binding Yil}" VerticalTextAlignment="Center" TextColor="Red"/>
                                         <Label Text=" | "  VerticalTextAlignment="Center"/>
-                                        <Label Text="{Binding Mail}" FontSize="20" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Marka}" FontSize="20" FontAttributes="Bold"/>
+                                        <Label Text=" | "  VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding Model}" FontSize="20" FontAttributes="Bold"/>
                                     </StackLayout>
                                 </StackLayout>
                             </Border>
