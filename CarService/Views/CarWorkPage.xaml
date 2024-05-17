@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarService.Views.CarWorkPage"
+             Title="CarWorkPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="KAYDET" Clicked="Save_Clicked"/>
+    </ContentPage.ToolbarItems>
+    <VerticalStackLayout VerticalOptions="CenterAndExpand">
+        <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
+        <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="btnMarka" Text="Marka" Clicked="btnMarka_Clicked"/>
+                <Label x:Name="txtMarka" VerticalTextAlignment="Center"/>
+            </StackLayout>
+        </Border>
+        <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="btnModel" Text="Model" Clicked="btnModel_Clicked"/>
+                <Label x:Name="txtModel" VerticalTextAlignment="Center"/>
+            </StackLayout>
+        </Border>
+        <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Yıl: " VerticalTextAlignment="Center"/>
+                <Entry x:Name="txtYil" HorizontalOptions="FillAndExpand" Keyboard="Numeric" MaxLength="4"/>
+            </StackLayout>
+        </Border>
+        <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Plaka: " VerticalTextAlignment="Center"/>
+                <Entry x:Name="txtPlaka" HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>

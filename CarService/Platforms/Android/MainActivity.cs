@@ -14,5 +14,10 @@ namespace CarService
 
             Parameters.DeviceId = Android.Provider.Settings.Secure.GetString(Android.App.Application.Context.ContentResolver, Android.Provider.Settings.Secure.AndroidId) ?? "";
         }
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            SecureStorage.RemoveAll();
+        }
     }
 }

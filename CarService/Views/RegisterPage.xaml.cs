@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.Messaging;
 using CarService.Requests;
+using Request_API;
 
 namespace CarService.Views;
 
@@ -49,6 +50,7 @@ public partial class RegisterPage : ContentPage
         LoadingIndicator.IsVisible = false;
         if (t.Status)
         {
+            Parameters.ActiveUser = t.Data;
             txtName.Text = "";
             txtSurname.Text = "";
             txtMail.Text = "";

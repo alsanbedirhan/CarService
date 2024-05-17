@@ -14,7 +14,7 @@ public partial class UsersPage : ContentPage
         InitializeComponent();
         viewModel = new UsersViewModel();
         BindingContext = viewModel;
-        pTip.BindingContext = new List<clsCombo>
+        pTip.ItemsSource = new List<clsCombo>
         {
             new clsCombo { Code = "", Description = "Hepsi" },
             new clsCombo { Code = "A", Description = "Yetkili" },

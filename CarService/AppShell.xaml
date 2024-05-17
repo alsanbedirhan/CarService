@@ -97,6 +97,9 @@
     <FlyoutItem FlyoutItemIsVisible="False">
         <ShellContent Route="UserWorkPage" ContentTemplate="{DataTemplate local:UserWorkPage}" />
     </FlyoutItem>
+    <FlyoutItem FlyoutItemIsVisible="False">
+        <ShellContent Route="CarWorkPage" ContentTemplate="{DataTemplate local:CarWorkPage}" />
+    </FlyoutItem>
 
     <Shell.FlyoutFooter>
         <Label x:Name="txtUserName" Text="Giriş Yapmalısınız" HorizontalTextAlignment="Center" BackgroundColor="{StaticResource Primary}" TextColor="White" Padding="10"/>

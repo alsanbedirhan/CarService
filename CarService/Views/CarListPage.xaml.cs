@@ -1,14 +1,17 @@
 using CarService.Requests;
 using CarService.ViewModels;
+using CommunityToolkit.Maui.Views;
 
 namespace CarService.Views;
 
 public partial class CarListPage : ContentPage
 {
     CarListViewModel viewModel;
+    List<decimal> MakeIds = new List<decimal>();
+    List<decimal> MakeModelIds = new List<decimal>();
     public CarListPage()
     {
-		InitializeComponent();
+        InitializeComponent();
         viewModel = new CarListViewModel();
         BindingContext = viewModel;
     }
@@ -29,6 +32,8 @@ public partial class CarListPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
+        MakeIds = new List<decimal>();
+        MakeModelIds = new List<decimal>();
         MainThread.BeginInvokeOnMainThread(async () =>
         {
             await SendRequest();
@@ -43,7 +48,7 @@ public partial class CarListPage : ContentPage
         }
         viewModel.ListSource.Clear();
         LoadingIndicator.IsVisible = true;
-        var t = await CarListRequests.AllUser(txtMarka?.Text?.Trim() ?? "", txtModel?.Text?.Trim() ?? "");
+        var t = await CarListRequests.UserCars(MakeIds, MakeModelIds);
         LoadingIndicator.IsVisible = false;
         if (t.Status)
         {
@@ -55,6 +60,8 @@ public partial class CarListPage : ContentPage
     {
         viewModel = new CarListViewModel();
         BindingContext = viewModel;
+        MakeIds = new List<decimal>();
+        MakeModelIds = new List<decimal>();
         base.OnDisappearing();
     }
     private void Search_Clicked(object sender, EventArgs e)
@@ -67,17 +74,46 @@ public partial class CarListPage : ContentPage
 
     private async void Add_Clicked(object sender, EventArgs e)
     {
-        UserWorkPage._model = new Users();
-        await Shell.Current.GoToAsync("//UserWorkPage");
+        await Shell.Current.GoToAsync("//CarWorkPage");
     }
 
     private async void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (e.CurrentSelection == null || !e.CurrentSelection.Any() || e.CurrentSelection[0] is not Users s)
+        if (e.CurrentSelection == null || !e.CurrentSelection.Any() || e.CurrentSelection[0] is not Cars s)
         {
             return;
         }
-        UserWorkPage._model = s;
-        await Shell.Current.GoToAsync("//UserWorkPage");
+        CarWorkPage._model = s;
+        await Shell.Current.GoToAsync("//CarWorkPage");
+    }
+
+    private async void btnModel_Clicked(object sender, EventArgs e)
+    {
+        LoadingIndicator.IsVisible = true;
+        var data = await CarListRequests.GetMakeModels(MakeIds);
+        LoadingIndicator.IsVisible = false;
+        var popup = new SearchPopUp(data, MakeModelIds);
+        var result = await this.ShowPopupAsync(popup);
+        if (result != null && result is List<clsSearch> search)
+        {
+            MakeModelIds = search.Select(x => x.Key).ToList();
+            //txtModels.Text = string.Join(",", search.Select(x => x.DisplayValue));
+        }
+    }
+
+    private async void btnMarka_Clicked(object sender, EventArgs e)
+    {
+        LoadingIndicator.IsVisible = true;
+        var data = await CarListRequests.GetMakes();
+        LoadingIndicator.IsVisible = false;
+        var popup = new SearchPopUp(data, MakeIds);
+        var result = await this.ShowPopupAsync(popup);
+        if (result != null && result is List<clsSearch> search)
+        {
+            MakeIds = search.Select(x => x.Key).ToList();
+            //txtMarkas.Text = string.Join(",", search.Select(x => x.DisplayValue));
+            MakeModelIds = new List<decimal>();
+            //txtModels.Text = "";
+        }
     }
 }

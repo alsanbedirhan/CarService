@@ -68,6 +68,7 @@ public partial class UserWorkPage : ContentPage
             _toolbar.Clicked -= Back_Clicked;
         }
         _toolbar = null;
+        this.Title = "";
         txtAd.Text = "";
         txtSoyad.Text = "";
         txtMail.Text = "";
@@ -96,7 +97,7 @@ public partial class UserWorkPage : ContentPage
             await DisplayAlert("Uyarý", "Mail girmelisiniz", "OK");
             return;
         }
-        if (pTip.SelectedItem is not UserTypes types || types == null)
+        if (pTip.SelectedItem is not clsCombo types || types == null)
         {
             await DisplayAlert("Uyarý", "Kullanýcý türünü seçmelisiniz", "OK");
             return;

@@ -17,10 +17,28 @@
                 <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
                 <Border StrokeThickness="5" Padding="5" Margin="0,0,0,10">
                     <StackLayout x:Name="sfilter" HorizontalOptions="FillAndExpand">
-                        <Entry x:Name="txtMarka" HorizontalOptions="FillAndExpand" Placeholder="Ad"/>
-                        <Entry x:Name="txtModel" HorizontalOptions="FillAndExpand" Placeholder="Soyad"/>
+                        <Border HorizontalOptions="FillAndExpand">
+                            <Button x:Name="btnMarka" Text="Marka" Clicked="btnMarka_Clicked"/>
+                        </Border>
+                        <Border HorizontalOptions="FillAndExpand">
+                            <Button x:Name="btnModel" Text="Model" Clicked="btnModel_Clicked"/>
+                        </Border>
                     </StackLayout>
                 </Border>
+                <!--<StackLayout x:Name="sfilter" HorizontalOptions="FillAndExpand">
+                    <Border HorizontalOptions="FillAndExpand" StrokeThickness="5">
+                        <StackLayout Orientation="Vertical">
+                            <Button x:Name="btnMarka" Text="Marka" Clicked="btnMarka_Clicked"/>
+                            <Label x:Name="txtMarkas"/>
+                        </StackLayout>
+                    </Border>
+                    <Border HorizontalOptions="FillAndExpand" StrokeThickness="5">
+                        <StackLayout Orientation="Vertical">
+                            <Button x:Name="btnModel" Text="Model" Clicked="btnModel_Clicked"/>
+                            <Label x:Name="txtModels"/>
+                        </StackLayout>
+                    </Border>
+                </StackLayout>-->
                 <CollectionView x:Name="view" ItemsSource="{Binding ListSource}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
