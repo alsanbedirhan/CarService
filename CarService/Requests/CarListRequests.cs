@@ -12,34 +12,39 @@ namespace CarService.Requests
 {
     public class CarListRequests
     {
-        private static List<clsSearchDetail> AllMakeModels;
-        public static async Task<RequestModel<List<Cars>>> UserCars(List<decimal> MakeIds, List<decimal> MakeModelIds)
+        private static List<clsSearchDetail>? AllMakeModels;
+        public static async Task<RequestModel<List<Cars>>> Cars(decimal UserId, List<decimal> MakeIds, List<decimal> MakeModelIds)
         {
-            return await new Request().Post<List<Cars>>("users/cars", JsonConvert.SerializeObject(new { MakeIds, MakeModelIds }));
+            return await new Request().Post<List<Cars>>("cars/allcars", JsonConvert.SerializeObject(new { UserId, MakeIds, MakeModelIds }));
         }
         public static async Task<List<clsSearch>> GetMakes()
         {
             if (AllMakeModels == null)
             {
-                var t = await new Request().Get<List<clsSearchDetail>>("cars/makemodels");
-                if (!t.Status)
-                {
-                    return new List<clsSearch>();
-                }
-                AllMakeModels = t.Data;
+                AllMakeModels = await GetAllMakeModels();
             }
             return AllMakeModels?.Select(x => new clsSearch { Key = x.Key, DisplayValue = x.DisplayValue }).ToList() ?? new List<clsSearch>();
+        }
+        private static async Task<List<clsSearchDetail>?> GetAllMakeModels()
+        {
+            var t = await new Request().Get<List<clsSearchDetail>>("cars/makemodels");
+            return t.Status ? t.Data : null;
+            //if (t.Status)
+            //{
+            //    return t.Data.Select(x => new clsSearchDetail
+            //    {
+            //        Key = x.Key,
+            //        DisplayValue = x.DisplayValue,
+            //        Details = x.Details.Select(y => new clsSearch { Key = y.Key, DisplayValue = x.DisplayValue + " - " + y.DisplayValue }).ToList()
+            //    }).ToList();
+            //}
+            //return null;
         }
         public static async Task<List<clsSearch>> GetMakeModels(List<decimal> MakeIds)
         {
             if (AllMakeModels == null)
             {
-                var t = await new Request().Get<List<clsSearchDetail>>("cars/makemodels");
-                if (!t.Status)
-                {
-                    return new List<clsSearch>();
-                }
-                AllMakeModels = t.Data;
+                AllMakeModels = await GetAllMakeModels();
             }
             return AllMakeModels?.Where(x => MakeIds.Contains(x.Key)).SelectMany(x => x.Details).ToList() ?? new List<clsSearch>();
         }

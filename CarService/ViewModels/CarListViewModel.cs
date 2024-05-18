@@ -16,6 +16,8 @@ namespace CarService.ViewModels
     {
         public decimal Idno { get; set; }
         public decimal ModelId { get; set; }
+        public decimal MarkaId { get; set; }
+        public decimal UserId { get; set; }
         public string Marka { get; set; }
         public string Model { get; set; }
         public byte Yil { get; set; }

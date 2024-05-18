@@ -1,11 +1,13 @@
 using CarService.Requests;
 using CarService.ViewModels;
 using CommunityToolkit.Maui.Views;
+using Request_API;
 
 namespace CarService.Views;
 
 public partial class CarListPage : ContentPage
 {
+    public static decimal UserId = 0;
     CarListViewModel viewModel;
     List<decimal> MakeIds = new List<decimal>();
     List<decimal> MakeModelIds = new List<decimal>();
@@ -34,6 +36,10 @@ public partial class CarListPage : ContentPage
         base.OnAppearing();
         MakeIds = new List<decimal>();
         MakeModelIds = new List<decimal>();
+        if (Parameters.ActiveUser?.UserType == "C")
+        {
+            UserId = Parameters.ActiveUser.UserId;
+        }
         MainThread.BeginInvokeOnMainThread(async () =>
         {
             await SendRequest();
@@ -48,7 +54,7 @@ public partial class CarListPage : ContentPage
         }
         viewModel.ListSource.Clear();
         LoadingIndicator.IsVisible = true;
-        var t = await CarListRequests.UserCars(MakeIds, MakeModelIds);
+        var t = await CarListRequests.Cars(UserId, MakeIds, MakeModelIds);
         LoadingIndicator.IsVisible = false;
         if (t.Status)
         {
@@ -62,6 +68,7 @@ public partial class CarListPage : ContentPage
         BindingContext = viewModel;
         MakeIds = new List<decimal>();
         MakeModelIds = new List<decimal>();
+        UserId = 0;
         base.OnDisappearing();
     }
     private void Search_Clicked(object sender, EventArgs e)
@@ -92,7 +99,7 @@ public partial class CarListPage : ContentPage
         LoadingIndicator.IsVisible = true;
         var data = await CarListRequests.GetMakeModels(MakeIds);
         LoadingIndicator.IsVisible = false;
-        var popup = new SearchPopUp(data, MakeModelIds);
+        var popup = new SearchPopUp(data, SelectionMode.Multiple, MakeModelIds);
         var result = await this.ShowPopupAsync(popup);
         if (result != null && result is List<clsSearch> search)
         {
@@ -106,7 +113,7 @@ public partial class CarListPage : ContentPage
         LoadingIndicator.IsVisible = true;
         var data = await CarListRequests.GetMakes();
         LoadingIndicator.IsVisible = false;
-        var popup = new SearchPopUp(data, MakeIds);
+        var popup = new SearchPopUp(data, SelectionMode.Multiple, MakeIds);
         var result = await this.ShowPopupAsync(popup);
         if (result != null && result is List<clsSearch> search)
         {

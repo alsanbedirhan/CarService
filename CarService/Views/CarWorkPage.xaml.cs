@@ -1,13 +1,13 @@
 using CarService.Requests;
 using CarService.ViewModels;
-using Java.Lang.Reflect;
+using CommunityToolkit.Maui.Views;
 using Request_API;
 
 namespace CarService.Views;
 
 public partial class CarWorkPage : ContentPage
 {
-    public static Cars? _model;
+    public static Cars _model = new Cars();
     public CarWorkPage()
     {
         InitializeComponent();
@@ -15,26 +15,26 @@ public partial class CarWorkPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        if (_model != null)
+        if (_model.Idno > 0)
         {
             this.Title = _model.Idno.ToString();
-            txtMarka.Text = _model.Marka;
-            txtModel.Text = _model.Model;
-            txtPlaka.Text = _model.Plaka;
-            txtYil.Text = _model.Yil.ToString();
-            //_toolbar = new ToolbarItem { Text = "GERÝ" };
-            //_toolbar.Clicked += Back_Clicked;
-            //this.ToolbarItems.Add(_toolbar);
         }
         else
         {
             this.Title = "Yeni Kayýt";
-            txtMarka.Text = "";
-            txtModel.Text = "";
-            txtPlaka.Text = "";
-            txtYil.Text = "";
-            _model = new Cars();
         }
+        if (Parameters.ActiveUser?.UserType == "C")
+        {
+            _model.UserId = Parameters.ActiveUser.UserId;
+        }
+        this.Title = _model.Idno > 0 ? _model.Idno.ToString() : "Yeni Kayýt";
+        txtMarka.Text = _model.Marka;
+        txtModel.Text = _model.Model;
+        txtPlaka.Text = _model.Plaka;
+        txtYil.Text = _model.Yil.ToString();
+        //_toolbar = new ToolbarItem { Text = "GERÝ" };
+        //_toolbar.Clicked += Back_Clicked;
+        //this.ToolbarItems.Add(_toolbar);
     }
     protected override void OnDisappearing()
     {
@@ -49,17 +49,42 @@ public partial class CarWorkPage : ContentPage
         txtModel.Text = "";
         txtPlaka.Text = "";
         txtYil.Text = "";
-        _model = null;
+        _model = new Cars();
     }
 
-    private void btnModel_Clicked(object sender, EventArgs e)
+    private async void btnModel_Clicked(object sender, EventArgs e)
     {
-        _model.ModelId = 0m;
+        if (_model.MarkaId > 0)
+        {
+            var data = await CarListRequests.GetMakeModels(new List<decimal> { _model.MarkaId });
+            var popup = new SearchPopUp(data, SelectionMode.Single);
+            var result = await this.ShowPopupAsync(popup);
+            if (result != null && result is List<clsSearch> search && search.Any())
+            {
+                _model.ModelId = search[0].Key;
+                txtModel.Text = search[0].DisplayValue;
+                _model.Model = search[0].DisplayValue;
+            }
+        }
     }
 
-    private void btnMarka_Clicked(object sender, EventArgs e)
+    private async void btnMarka_Clicked(object sender, EventArgs e)
     {
-
+        LoadingIndicator.IsVisible = true;
+        var data = await CarListRequests.GetMakes();
+        LoadingIndicator.IsVisible = false;
+        var popup = new SearchPopUp(data, SelectionMode.Single);
+        var result = await this.ShowPopupAsync(popup);
+        if (result != null && result is List<clsSearch> search && search.Any())
+        {
+            _model.MarkaId = search[0].Key;
+            txtMarka.Text = search[0].DisplayValue;
+            _model.Marka = search[0].DisplayValue;
+            txtModel.Text = "";
+            _model.ModelId = 0;
+            _model.Model = "";
+            //txtModels.Text = string.Join(",", search.Select(x => x.DisplayValue));
+        }
     }
     private async void Save_Clicked(object sender, EventArgs e)
     {
@@ -94,7 +119,7 @@ public partial class CarWorkPage : ContentPage
         {
             return;
         }
-        var t = await CarRequests.WorkCar(_model.Idno, _model.ModelId, txtPlaka.Text, txtYil.Text);
+        var t = await CarRequests.WorkCar(_model.Idno, _model.UserId, _model.ModelId, txtPlaka.Text, txtYil.Text);
         if (t.Status)
         {
             await DisplayAlert("Bilgi", "Ýþlem baþarýlý", "OK");

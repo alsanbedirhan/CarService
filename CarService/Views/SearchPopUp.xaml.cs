@@ -8,8 +8,9 @@ public partial class SearchPopUp : Popup
     {
         InitializeComponent();
     }
-    public SearchPopUp(List<clsSearch> items, List<decimal>? selected = null) : this()
+    public SearchPopUp(List<clsSearch> items, SelectionMode selectionMode, List<decimal>? selected = null) : this()
     {
+        ItemsCollectionView.SelectionMode = selectionMode;
         ItemsCollectionView.ItemsSource = items;
         if (selected != null)
         {
@@ -27,9 +28,20 @@ public partial class SearchPopUp : Popup
     private void Ok_Clicked(object sender, EventArgs e)
     {
         List<clsSearch> items = new List<clsSearch>();
-        foreach (clsSearch item in ItemsCollectionView.SelectedItems)
+        switch (ItemsCollectionView.SelectionMode)
         {
-            items.Add(item);
+            case SelectionMode.Single:
+                if (ItemsCollectionView.SelectedItem is clsSearch search && search != null)
+                {
+                    items.Add(search);
+                }
+                break;
+            case SelectionMode.Multiple:
+                foreach (clsSearch item in ItemsCollectionView.SelectedItems)
+                {
+                    items.Add(item);
+                }
+                break;
         }
         Close(items);
     }
