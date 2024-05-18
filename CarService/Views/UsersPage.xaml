@@ -42,12 +42,12 @@
                                 
                                 <StackLayout Orientation="Vertical" HorizontalOptions="Center">
                                     <StackLayout Orientation="Horizontal" Padding="0,5,0,5" HorizontalOptions="CenterAndExpand">
-                                        <Label Text="{Binding Idno}" VerticalTextAlignment="Center" TextColor="Red"/>
+                                        <Label Text="{Binding UserId}" VerticalTextAlignment="Center" TextColor="Red"/>
                                         <Label Text=" | "  VerticalTextAlignment="Center"/>
                                         <Label Text="{Binding AdSoyad}" FontSize="20" FontAttributes="Bold"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal" Padding="0,5,0,5" HorizontalOptions="CenterAndExpand">
-                                        <Label Text="{Binding Tip}" VerticalTextAlignment="Center" TextColor="Red"/>
+                                        <Label Text="{Binding UserType}" VerticalTextAlignment="Center" TextColor="Red"/>
                                         <Label Text=" | "  VerticalTextAlignment="Center"/>
                                         <Label Text="{Binding Mail}" FontSize="20" FontAttributes="Bold"/>
                                     </StackLayout>

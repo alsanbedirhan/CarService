@@ -3,7 +3,6 @@ using CarService.Requests;
 using CarService.ViewModels;
 using CommunityToolkit.Maui.Views;
 using Request_API;
-using static Android.App.Assist.AssistStructure;
 
 namespace CarService.Views;
 
@@ -36,10 +35,18 @@ public partial class ServiceWorkPage : ContentPage
     }
     private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-
+        if (view.SelectedItem is CompanyWorkDetail detail && detail != null)
+        {
+            detail.BColor = Color.FromArgb("#FF9400");
+        }
+        else
+        {
+            viewModel.ListSource.ToList().ForEach(x => x.BColor = Color.FromArgb("#F0F8FF"));
+        }
     }
     async Task SendRequest()
     {
+        viewModel.ListSource.Clear();
         if (viewModel.CompanyWorkId <= 0)
         {
             return;

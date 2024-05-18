@@ -16,7 +16,7 @@ namespace CarService.ViewModels
         private ObservableCollection<CompanyWorkDetail> _ListSource = new ObservableCollection<CompanyWorkDetail>();
         public ObservableCollection<CompanyWorkDetail> ListSource { get => _ListSource; set => SetProperty(ref _ListSource, value); }
     }
-    public class CompanyWorkDetail
+    public class CompanyWorkDetail : BaseViewModel
     {
         public decimal Idno { get; set; }
         public decimal Price { get; set; }
@@ -25,6 +25,8 @@ namespace CarService.ViewModels
         public decimal Cuser { get; set; }
         public string Ad { get; set; }
         public string Soyad { get; set; }
-        public string Cinfo => Ad + " " + Soyad + " - " + Cinfo;
+        public string Cinfo => Ad + " " + Soyad + " - " + Cdate;
+        private Color _BColor = Color.FromArgb("#F0F8FF");
+        public Color BColor { get => _BColor; set => SetProperty(ref _BColor, value); }
     }
 }

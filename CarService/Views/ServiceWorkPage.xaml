@@ -45,7 +45,7 @@
                 <CollectionView x:Name="view" ItemsSource="{Binding ListSource}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Border BackgroundColor="AliceBlue">
+                            <Border BackgroundColor="{Binding BColor}" StrokeThickness="5">
                                 <StackLayout Orientation="Vertical" HorizontalOptions="Center">
                                     <StackLayout Orientation="Horizontal" Padding="0,5,0,5" HorizontalOptions="CenterAndExpand">
                                         <Label Text="{Binding Idno}" VerticalTextAlignment="Center" TextColor="Red"/>
@@ -53,7 +53,7 @@
                                         <Label Text="{Binding Cinfo}" FontSize="20" FontAttributes="Bold"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal" Padding="0,5,0,5" HorizontalOptions="CenterAndExpand">
-                                        <Label Text="{Binding Price}" FontSize="20" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Price}" VerticalTextAlignment="Center" TextColor="Red"/>
                                         <Label Text=" | "  VerticalTextAlignment="Center"/>
                                         <Label Text="{Binding Aciklama}" FontSize="20" FontAttributes="Bold"/>
                                     </StackLayout>
