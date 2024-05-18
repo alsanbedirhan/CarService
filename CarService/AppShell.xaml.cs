@@ -34,7 +34,7 @@ namespace CarService
                     if (Parameters.ActiveUser != null)
                     {
                         LoginItem.Title = "Çıkış Yap";
-                        txtUserName.Text = string.Concat(Parameters.ActiveUser.AdSoyad);
+                        txtUserName.Text = string.Concat(Parameters.ActiveUser.UserId + " - ", Parameters.ActiveUser.AdSoyad);
                     }
                     else
                     {

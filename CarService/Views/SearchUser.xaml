@@ -19,7 +19,7 @@
             <Entry x:Name="txtAd" Grid.Row="0" Grid.Column="0" Placeholder="Ad" PlaceholderColor="Red" HorizontalOptions="FillAndExpand" Completed="text_Completed"/>
             <Entry x:Name="txtSoyad" Grid.Row="1" Grid.Column="0" Placeholder="Soyad" PlaceholderColor="Red" HorizontalOptions="FillAndExpand" Completed="text_Completed"/>
             <Entry x:Name="txtMail" Grid.Row="2" Grid.Column="0" Placeholder="Mail" PlaceholderColor="Red" HorizontalOptions="FillAndExpand" Completed="text_Completed"/>
-            <Button Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Text="Ara" Margin="5" Clicked="Ara_Clicked" BackgroundColor="Green"/>
+            <Button Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Text="Ara" Margin="5" Clicked="Ara_Clicked" BackgroundColor="Green" MaximumHeightRequest="100" MaximumWidthRequest="100"/>
             <Button x:Name="btnEkle" Grid.Row="3" Grid.Column="0"  Padding="5" Text="Yeni Kayıt" Clicked="btnEkle_Clicked" BackgroundColor="Red"/>
         </Grid>
         <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
