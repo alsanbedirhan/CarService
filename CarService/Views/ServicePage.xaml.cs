@@ -14,28 +14,6 @@ public partial class ServicePage : ContentPage
         viewModel = new ServiceViewModel();
         BindingContext = viewModel;
     }
-    protected override void OnSizeAllocated(double width, double height)
-    {
-        base.OnSizeAllocated(width, height);
-        if (width > height)
-        {
-            //view.ItemsLayout = new GridItemsLayout(2, ItemsLayoutOrientation.Vertical);
-            sfilter.Orientation = StackOrientation.Horizontal;
-        }
-        else
-        {
-            //view.ItemsLayout = new GridItemsLayout(1, ItemsLayoutOrientation.Vertical);
-            sfilter.Orientation = StackOrientation.Vertical;
-        }
-    }
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        //MainThread.BeginInvokeOnMainThread(async () =>
-        //{
-        //    await SendRequest();
-        //});
-    }
     protected override void OnDisappearing()
     {
         viewModel = new ServiceViewModel();
@@ -48,12 +26,13 @@ public partial class ServicePage : ContentPage
         {
             return;
         }
+        SearchUserCar.UserId = viewModel.UserId;
         var popup = new SearchUserCar();
-        popup.UserId = viewModel.UserId;
         var result = await this.ShowPopupAsync(popup);
-        if (result != null)
+        if (result != null && result is SearchUserCarList search && search != null)
         {
-
+            viewModel.MarkaModelPlaka = search.MarkaModel + " - " + search.Plaka;
+            viewModel.UserCarId = search.Idno;
         }
     }
 
@@ -65,6 +44,32 @@ public partial class ServicePage : ContentPage
         {
             viewModel.UserId = search.Idno;
             viewModel.AdSoyad = search.AdSoyad;
+        }
+    }
+
+    private async void Save_Clicked(object sender, EventArgs e)
+    {
+        if (LoadingIndicator.IsVisible)
+        {
+            return;
+        }
+        if (viewModel.UserCarId <= 0)
+        {
+            await DisplayAlert("Uyarý", "Araç seçmelisiniz", "OK");
+            return;
+        }
+        if (string.IsNullOrEmpty(viewModel.Aciklama))
+        {
+            await DisplayAlert("Uyarý", "Açýklama girmelisiniz", "OK");
+            return;
+        }
+        LoadingIndicator.IsVisible = true;
+        var s = await ServiceRequests.Save(viewModel.UserCarId, viewModel.Aciklama);
+        LoadingIndicator.IsVisible = false;
+        if (s.Status)
+        {
+            await DisplayAlert("Bilgi", "Ýþlem baþarýlý", "OK");
+            await Shell.Current.GoToAsync("//AboutPage");
         }
     }
 }

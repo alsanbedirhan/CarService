@@ -4,11 +4,14 @@
              xmlns:vm="clr-namespace:CarService.ViewModels"
              x:Class="CarService.Views.ServicePage"
              Title="Araç Al">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="KAYDET" Clicked="Save_Clicked"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.BindingContext>
         <vm:ServiceViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="5" Margin="0,0,0,10">
+        <StackLayout Orientation="Vertical" Padding="50" Margin="0,0,0,10" VerticalOptions="CenterAndExpand">
             <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
             <StackLayout x:Name="sfilter" HorizontalOptions="FillAndExpand">
                 <Border HorizontalOptions="FillAndExpand" StrokeThickness="5">
@@ -20,7 +23,13 @@
                 <Border HorizontalOptions="FillAndExpand" StrokeThickness="5">
                     <StackLayout Orientation="Vertical">
                         <Button x:Name="btnUserCar" Text="Araç" Clicked="btnUserCar_Clicked" Margin="5"/>
-                        <Label Text="{Binding MarkaModel}" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                        <Label Text="{Binding MarkaModelPlaka}" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                    </StackLayout>
+                </Border>
+                <Border HorizontalOptions="FillAndExpand" StrokeThickness="5">
+                    <StackLayout Orientation="Vertical">
+                        <Label Text="Açıklama" Margin="5"/>
+                        <Entry Text="{Binding Aciklama}" MaxLength="500"/>
                     </StackLayout>
                 </Border>
             </StackLayout>

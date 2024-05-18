@@ -16,7 +16,7 @@
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
 
-            <Picker x:Name="pkMarka" Grid.Row="0" Grid.Column="0" Title="Marka" TitleColor="Red"/>
+            <Picker x:Name="pkMarka" Grid.Row="0" Grid.Column="0" Title="Marka" TitleColor="Red" SelectedIndexChanged="pkMarka_SelectedIndexChanged"/>
             <Picker x:Name="pkModel" Grid.Row="1" Grid.Column="0" Title="Model" TitleColor="Red"/>
             <Entry x:Name="txtYil" Grid.Row="2" Grid.Column="0" Placeholder="Yıl" PlaceholderColor="Red" Keyboard="Numeric" MaxLength="4"/>
             <Entry x:Name="txtPlaka" Grid.Row="3" Grid.Column="0" Placeholder="Plaka" PlaceholderColor="Red" MaxLength="15"/>

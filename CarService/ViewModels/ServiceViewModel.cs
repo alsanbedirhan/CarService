@@ -8,13 +8,11 @@ namespace CarService.ViewModels
 {
     public class ServiceViewModel : BaseViewModel
     {
-        private decimal _Idno, _UserCardId, _UserId, _MakeModelId;
-        private string _AdSoyad, _MarkaModel;
-        public decimal Idno { get => _Idno; set => SetProperty(ref _Idno, value); }
-        public decimal UserCarId { get => _UserCardId; set => SetProperty(ref _UserCardId, value); }
-        public decimal UserId { get => _UserId; set => SetProperty(ref _UserId, value); }
-        public decimal MakeModelId { get => _MakeModelId; set => SetProperty(ref _MakeModelId, value); }
+        private string _AdSoyad, _MarkaModelPlaka, _Aciklama;
+        public decimal UserCarId { get; set; }
+        public decimal UserId { get; set; }
         public string AdSoyad { get => _AdSoyad; set => SetProperty(ref _AdSoyad, value); }
-        public string MarkaModel { get => _MarkaModel; set => SetProperty(ref _MarkaModel, value); }
+        public string MarkaModelPlaka { get => _MarkaModelPlaka; set => SetProperty(ref _MarkaModelPlaka, value); }
+        public string Aciklama { get => _Aciklama; set => SetProperty(ref _Aciklama, value); }
     }
 }

@@ -5,10 +5,17 @@ namespace CarService.Views;
 
 public partial class SearchUserCar : Popup
 {
-    public decimal UserId = 0;
+    public static decimal UserId = 0;
     public SearchUserCar()
     {
         InitializeComponent();
+        pkModel.ItemDisplayBinding = new Binding("DisplayValue");
+        pkMarka.ItemDisplayBinding = new Binding("DisplayValue");
+        MainThread.BeginInvokeOnMainThread(async () =>
+        {
+            await SendRequest();
+            pkMarka.ItemsSource = await CarListRequests.GetMakes();
+        });
     }
     async Task SendRequest()
     {
@@ -48,5 +55,14 @@ public partial class SearchUserCar : Popup
     private void ItemsCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         Close(e.CurrentSelection.FirstOrDefault());
+    }
+
+    private async void pkMarka_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (pkMarka.SelectedItem is not clsSearch search || search == null)
+        {
+            return;
+        }
+        pkModel.ItemsSource = await CarListRequests.GetMakeModels(new List<decimal> { search.Key });
     }
 }

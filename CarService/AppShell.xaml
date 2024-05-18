@@ -85,7 +85,7 @@
     <FlyoutItem IsVisible="{Binding IsCustomer}" Title="Araçlarım" Icon="icon_about.png">
         <ShellContent Route="MyCarListPage" ContentTemplate="{DataTemplate local:CarListPage}" />
     </FlyoutItem>
-    <FlyoutItem IsVisible="{Binding IsNotCustomer}" Title="Araç Al" Icon="icon_about.png">
+    <FlyoutItem IsVisible="{Binding IsNotCustomer}" Title="Araç Giriş" Icon="icon_about.png">
         <ShellContent Route="ServicePage" ContentTemplate="{DataTemplate local:ServicePage}" />
     </FlyoutItem>
     <FlyoutItem IsVisible="{Binding IsAuthorized}" Title="Personel Listesi" Icon="icon_about.png">

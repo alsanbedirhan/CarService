@@ -19,6 +19,10 @@ namespace CarService.Requests
         {
             return await new Request().Post<List<SearchUserCarList>>("users/searchcustomercars", JsonConvert.SerializeObject(new { UserId, MakeId, MakeModelId, plaka, yil }));
         }
+        public static async Task<RequestModel> Save(decimal UserCarId, string Aciklama)
+        {
+            return await new Request().Post("companies/serviceentry", JsonConvert.SerializeObject(new { UserCarId, Aciklama }));
+        }
     }
     public class SearchUserList
     {
@@ -29,7 +33,10 @@ namespace CarService.Requests
     public class SearchUserCarList
     {
         public decimal Idno { get; set; }
-        public string MarkaModel { get; set; }
+        public string Marka { get; set; }
+        public string Model { get; set; }
+        public decimal MarkaModelId { get; set; }
         public string Plaka { get; set; }
+        public string MarkaModel => Marka + " " + Model;
     }
 }
