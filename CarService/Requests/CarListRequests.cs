@@ -13,9 +13,9 @@ namespace CarService.Requests
     public class CarListRequests
     {
         private static List<clsSearchDetail>? AllMakeModels;
-        public static async Task<RequestModel<List<Cars>>> Cars(decimal UserId, List<decimal> MakeIds, List<decimal> MakeModelIds)
+        public static async Task<RequestModel<List<Cars>>> Cars(decimal UserId, decimal MakeId, decimal MakeModelId)
         {
-            return await new Request().Post<List<Cars>>("cars/allcars", JsonConvert.SerializeObject(new { UserId, MakeIds, MakeModelIds }));
+            return await new Request().Post<List<Cars>>("cars/allcars", JsonConvert.SerializeObject(new { UserId, MakeId, MakeModelId }));
         }
         public static async Task<List<clsSearch>> GetMakes()
         {

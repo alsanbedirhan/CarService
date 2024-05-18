@@ -9,16 +9,10 @@
     <VerticalStackLayout VerticalOptions="CenterAndExpand">
         <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
         <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
-            <StackLayout Orientation="Horizontal">
-                <Button x:Name="btnMarka" Text="Marka" Clicked="btnMarka_Clicked" Margin="5"/>
-                <Label x:Name="txtMarka" VerticalTextAlignment="Center"/>
-            </StackLayout>
+            <Picker x:Name="pkMarka" Title="Marka" TitleColor="Red" SelectedIndexChanged="pkMarka_SelectedIndexChanged" HorizontalOptions="FillAndExpand" Margin="5"/>
         </Border>
         <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
-            <StackLayout Orientation="Horizontal">
-                <Button x:Name="btnModel" Text="Model" Clicked="btnModel_Clicked" Margin="5"/>
-                <Label x:Name="txtModel" VerticalTextAlignment="Center"/>
-            </StackLayout>
+            <Picker x:Name="pkModel" Title="Model" TitleColor="Red" HorizontalOptions="FillAndExpand" Margin="5"/>
         </Border>
         <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
             <StackLayout Orientation="Horizontal" Margin="5">

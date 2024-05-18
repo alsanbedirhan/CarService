@@ -5,6 +5,7 @@
              xmlns:vm="clr-namespace:CarService.ViewModels"
              Title="Araçlar">
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="TEMİZLE" Clicked="Clear_Clicked" />
         <ToolbarItem Text="YENİLE" Clicked="Search_Clicked" />
         <ToolbarItem Text="EKLE" Clicked="Add_Clicked" />
     </ContentPage.ToolbarItems>
@@ -17,8 +18,8 @@
                 <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
                 <Border StrokeThickness="5" Padding="5" Margin="0,0,0,10">
                     <StackLayout x:Name="sfilter" HorizontalOptions="FillAndExpand">
-                        <Button x:Name="btnMarka" Text="Marka" Clicked="btnMarka_Clicked" HorizontalOptions="FillAndExpand" Margin="5"/>
-                        <Button x:Name="btnModel" Text="Model" Clicked="btnModel_Clicked" HorizontalOptions="FillAndExpand" Margin="5"/>
+                        <Picker x:Name="pkMarka" Title="Marka" TitleColor="Red" SelectedIndexChanged="pkMarka_SelectedIndexChanged" HorizontalOptions="FillAndExpand" Margin="5"/>
+                        <Picker x:Name="pkModel" Title="Model" TitleColor="Red" HorizontalOptions="FillAndExpand" Margin="5"/>
                     </StackLayout>
                 </Border>
                 <!--<StackLayout x:Name="sfilter" HorizontalOptions="FillAndExpand">
