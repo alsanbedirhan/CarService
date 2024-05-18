@@ -79,7 +79,7 @@ public partial class UsersPage : ContentPage
 
     private async void Add_Clicked(object sender, EventArgs e)
     {
-        UserWorkPage._model = new Users();
+        UserWorkPage._model = new UserInfo();
         await Shell.Current.GoToAsync("//UserWorkPage");
     }
 
@@ -97,7 +97,7 @@ public partial class UsersPage : ContentPage
 
     private async void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (e.CurrentSelection == null || !e.CurrentSelection.Any() || e.CurrentSelection[0] is not Users s)
+        if (e.CurrentSelection == null || !e.CurrentSelection.Any() || e.CurrentSelection[0] is not UserInfo s)
         {
             return;
         }

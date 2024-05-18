@@ -29,8 +29,8 @@
                     <StackLayout x:Name="stip" Orientation="Horizontal" MinimumWidthRequest="125" Margin="5">
                         <Picker x:Name="pTip" HorizontalOptions="FillAndExpand" Title="Tip"/>
                     </StackLayout>-->
-                        <Entry x:Name="txtAd" HorizontalOptions="FillAndExpand" Placeholder="Ad"/>
-                        <Entry x:Name="txtSoyad" HorizontalOptions="FillAndExpand" Placeholder="Soyad"/>
+                        <Entry x:Name="txtAd" HorizontalOptions="FillAndExpand" Placeholder="Ad" PlaceholderColor="Red"/>
+                        <Entry x:Name="txtSoyad" HorizontalOptions="FillAndExpand" Placeholder="Soyad" PlaceholderColor="Red"/>
                         <Picker x:Name="pTip" Title="Tip" MinimumWidthRequest="125"/>
                         <!--<Button Text="Yenile" Clicked="Search_Clicked" Margin="20,20,20,0"/>-->
                     </StackLayout>

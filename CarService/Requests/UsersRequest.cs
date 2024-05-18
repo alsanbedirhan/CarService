@@ -11,9 +11,9 @@ namespace CarService.Requests
 {
     public class UsersRequest
     {
-        public static async Task<RequestModel<List<Users>>> AllUser(string ad, string soyad, string usertype)
+        public static async Task<RequestModel<List<UserInfo>>> AllUser(string ad, string soyad, string usertype)
         {
-            return await new Request().Post<List<Users>>("users/allusers", JsonConvert.SerializeObject(new { ad, soyad, usertype }));
+            return await new Request().Post<List<UserInfo>>("users/allusers", JsonConvert.SerializeObject(new { ad, soyad, usertype }));
         }
         public static async Task<RequestModel> WorkUser(string ad, string soyad, decimal idno, string usertype, string mail)
         {

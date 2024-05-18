@@ -5,7 +5,7 @@
                x:Class="CarService.Views.SearchPopUp">
     <StackLayout Padding="20" Spacing="10" Orientation="Vertical">
         <Label Text="Seçiniz" FontSize="20"/>
-        <CollectionView x:Name="ItemsCollectionView" SelectionMode="Multiple">
+        <CollectionView x:Name="ItemsCollectionView">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border StrokeThickness="5">

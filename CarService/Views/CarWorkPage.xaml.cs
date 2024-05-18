@@ -102,28 +102,28 @@ public partial class CarWorkPage : ContentPage
             await DisplayAlert("Uyarý", "Model seçmelisiniz", "OK");
             return;
         }
-        if (Parameters.ActiveUser?.UserType != "C")
+        if (txtYil.Text.Length != 4 || !short.TryParse(txtYil.Text, out short yil) || yil <= 1900 || yil > 3000)
         {
-            if (string.IsNullOrEmpty(txtPlaka.Text))
-            {
-                await DisplayAlert("Uyarý", "Plaka girmelisiniz", "OK");
-                return;
-            }
-            if (!int.TryParse(txtYil.Text, out int yil) || yil <= 1900)
-            {
-                await DisplayAlert("Uyarý", "Yýl girmelisiniz", "OK");
-                return;
-            }
+            await DisplayAlert("Uyarý", "Yýl verisi hatalý", "OK");
+            return;
+        }
+        if (string.IsNullOrEmpty(txtPlaka.Text))
+        {
+            await DisplayAlert("Uyarý", "Plaka girmelisiniz", "OK");
+            return;
         }
         if (!await DisplayAlert("Soru", "Kayýt iþlemi gerçekleþtirilecektir, devam etmek istiyor musunuz?", "YES", "NO"))
         {
             return;
         }
-        var t = await CarRequests.WorkCar(_model.Idno, _model.UserId, _model.ModelId, txtPlaka.Text, txtYil.Text);
+        var t = await CarRequests.WorkCar(_model.Idno, _model.UserId, _model.ModelId, txtPlaka.Text, yil);
         if (t.Status)
         {
             await DisplayAlert("Bilgi", "Ýþlem baþarýlý", "OK");
-            await Shell.Current.GoToAsync("//AboutPage");
+            if (Parameters.ActiveUser?.UserType == "C")
+            {
+                await Shell.Current.GoToAsync("//MyCarListPage");
+            }
         }
     }
 }

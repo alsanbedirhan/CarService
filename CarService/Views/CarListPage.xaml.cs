@@ -96,6 +96,10 @@ public partial class CarListPage : ContentPage
 
     private async void btnModel_Clicked(object sender, EventArgs e)
     {
+        if (!MakeIds.Any())
+        {
+            return;
+        }
         LoadingIndicator.IsVisible = true;
         var data = await CarListRequests.GetMakeModels(MakeIds);
         LoadingIndicator.IsVisible = false;

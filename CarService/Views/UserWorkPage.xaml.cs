@@ -8,7 +8,7 @@ namespace CarService.Views;
 
 public partial class UserWorkPage : ContentPage
 {
-    public static Users? _model;
+    public static UserInfo? _model;
     ToolbarItem? _toolbar;
     public UserWorkPage()
     {
@@ -22,14 +22,14 @@ public partial class UserWorkPage : ContentPage
         base.OnAppearing();
         if (_model != null)
         {
-            if (_model.Idno > 0)
+            if (_model.UserId > 0)
             {
-                this.Title = _model.Idno.ToString();
+                this.Title = _model.UserId.ToString();
                 txtAd.Text = _model.Ad;
                 txtSoyad.Text = _model.Soyad;
                 txtMail.Text = _model.Mail;
                 txtMail.IsEnabled = false;
-                pTip.SelectedItem = MauiProgram._UserTypes.FirstOrDefault(x => x.Code == _model.Tip);
+                pTip.SelectedItem = MauiProgram._UserTypes.FirstOrDefault(x => x.Code == _model.UserType);
             }
             else
             {
@@ -106,12 +106,19 @@ public partial class UserWorkPage : ContentPage
         {
             return;
         }
-        var t = await UsersRequest.WorkUser(txtAd.Text, txtSoyad.Text, (_model != null ? _model.Idno :
+        var t = await UsersRequest.WorkUser(txtAd.Text, txtSoyad.Text, (_model != null ? _model.UserId :
             (Parameters.ActiveUser?.UserId ?? 0m)), types.Code, txtMail.Text);
         if (t.Status)
         {
             await DisplayAlert("Bilgi", "Ýþlem baþarýlý", "OK");
-            await Shell.Current.GoToAsync("//AboutPage");
+            if (Parameters.ActiveUser?.UserType == "C")
+            {
+                await Shell.Current.GoToAsync("//AboutPage");
+            }
+            else
+            {
+                await Shell.Current.GoToAsync("//UsersPage");
+            }
         }
     }
 }

@@ -8,20 +8,23 @@
         <vm:ServiceViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <VerticalStackLayout>
-            <HorizontalStackLayout>
-                <Button Text="Araç Seç" Margin="50,5,50,0"/>
-                <Button Text="Araç Kaydet" Margin="50,5,50,0"/>
-            </HorizontalStackLayout>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.2*"/>
-                    <ColumnDefinition Width="0.8*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Text="Araç Sahibi:" FontSize="20" FontAttributes="Bold"/>
-                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Musteri.AdSoyad}"/>
+        <StackLayout Orientation="Vertical" Padding="5" Margin="0,0,0,10">
+            <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
+            <StackLayout x:Name="sfilter" HorizontalOptions="FillAndExpand">
+                <Border HorizontalOptions="FillAndExpand" StrokeThickness="5">
+                    <StackLayout Orientation="Vertical">
+                        <Button x:Name="btnUser" Text="Araç Sahibi" Clicked="btnUser_Clicked" Margin="5"/>
+                        <Label Text="{Binding AdSoyad}" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                    </StackLayout>
+                </Border>
+                <Border HorizontalOptions="FillAndExpand" StrokeThickness="5">
+                    <StackLayout Orientation="Vertical">
+                        <Button x:Name="btnUserCar" Text="Araç" Clicked="btnUserCar_Clicked" Margin="5"/>
+                        <Label Text="{Binding MarkaModel}" FontAttributes="Bold" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                    </StackLayout>
+                </Border>
+            </StackLayout>
 
-            </Grid>
-        </VerticalStackLayout>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

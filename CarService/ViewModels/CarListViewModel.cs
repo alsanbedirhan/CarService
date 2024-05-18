@@ -20,7 +20,7 @@ namespace CarService.ViewModels
         public decimal UserId { get; set; }
         public string Marka { get; set; }
         public string Model { get; set; }
-        public byte Yil { get; set; }
+        public short Yil { get; set; }
         public string Plaka { get; set; }
     }
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="CarService.Views.SearchUserCar">
+    <StackLayout Padding="20" Orientation="Vertical" MinimumWidthRequest="300">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.65*"/>
+                <ColumnDefinition Width="0.35*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+
+            <Picker x:Name="pkMarka" Grid.Row="0" Grid.Column="0" Title="Marka" TitleColor="Red"/>
+            <Picker x:Name="pkModel" Grid.Row="1" Grid.Column="0" Title="Model" TitleColor="Red"/>
+            <Entry x:Name="txtYil" Grid.Row="2" Grid.Column="0" Placeholder="Yıl" PlaceholderColor="Red" Keyboard="Numeric" MaxLength="4"/>
+            <Entry x:Name="txtPlaka" Grid.Row="3" Grid.Column="0" Placeholder="Plaka" PlaceholderColor="Red" MaxLength="15"/>
+            <Button Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Text="Ara" Margin="5" Clicked="Ara_Clicked" BackgroundColor="Green"/>
+            <Button x:Name="btnEkle" Grid.Row="3" Grid.Column="1" Padding="5" Text="Yeni Kayıt" Clicked="btnEkle_Clicked" BackgroundColor="Red"/>
+        </Grid>
+        <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
+
+        <CollectionView x:Name="ItemsCollectionView" SelectionMode="Single" Margin="10" SelectionChanged="ItemsCollectionView_SelectionChanged">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border StrokeThickness="5">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding MarkaModel}"/>
+                            <Label Text=" - "/>
+                            <Label Text="{Binding Plaka}"/>
+                        </StackLayout>
+                    </Border>
+
+                    <!--<StackLayout Orientation="Horizontal">
+                        <Border StrokeThickness="5">
+                            <Label Text="{Binding AdSoyad}" FontSize="18"/>
+                        </Border>
+                        <Border StrokeThickness="5">
+                            <Label Text="{Binding Mail}" FontSize="18"/>
+                        </Border>
+                    </StackLayout>-->
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</toolkit:Popup>

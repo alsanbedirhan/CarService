@@ -10,26 +10,26 @@
         <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
         <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
             <StackLayout Orientation="Horizontal">
-                <Button x:Name="btnMarka" Text="Marka" Clicked="btnMarka_Clicked"/>
+                <Button x:Name="btnMarka" Text="Marka" Clicked="btnMarka_Clicked" Margin="5"/>
                 <Label x:Name="txtMarka" VerticalTextAlignment="Center"/>
             </StackLayout>
         </Border>
         <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
             <StackLayout Orientation="Horizontal">
-                <Button x:Name="btnModel" Text="Model" Clicked="btnModel_Clicked"/>
+                <Button x:Name="btnModel" Text="Model" Clicked="btnModel_Clicked" Margin="5"/>
                 <Label x:Name="txtModel" VerticalTextAlignment="Center"/>
             </StackLayout>
         </Border>
         <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Yıl: " VerticalTextAlignment="Center"/>
+            <StackLayout Orientation="Horizontal" Margin="5">
+                <Label Text="Yıl: " VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="Red"/>
                 <Entry x:Name="txtYil" HorizontalOptions="FillAndExpand" Keyboard="Numeric" MaxLength="4"/>
             </StackLayout>
         </Border>
         <Border StrokeThickness="5" Margin="50,5,50,0" BackgroundColor="AliceBlue">
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Plaka: " VerticalTextAlignment="Center"/>
-                <Entry x:Name="txtPlaka" HorizontalOptions="FillAndExpand" />
+            <StackLayout Orientation="Horizontal" Margin="5">
+                <Label Text="Plaka: " VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="Red"/>
+                <Entry x:Name="txtPlaka" HorizontalOptions="FillAndExpand" MaxLength="15"/>
             </StackLayout>
         </Border>
     </VerticalStackLayout>
