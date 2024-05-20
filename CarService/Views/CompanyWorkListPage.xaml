@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarService.Views.CompanyWorkListPage"
+             xmlns:vm="clr-namespace:CarService.ViewModels"
+             Title="İşlemi Bitenler">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="TEMİZLE" Clicked="Clear_Clicked" />
+        <ToolbarItem Text="YENİLE" Clicked="Search_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.BindingContext>
+        <vm:CompanyWorkListViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical">
+            <StackLayout Orientation="Vertical">
+                <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
+               
+                <Border StrokeThickness="5" Padding="5" Margin="0,0,0,10">
+                    <StackLayout Orientation="Vertical">
+                        <StackLayout x:Name="sfilterC" HorizontalOptions="FillAndExpand">
+                            <Picker x:Name="pkMarka" Title="Marka" TitleColor="Red" SelectedIndexChanged="pkMarka_SelectedIndexChanged" HorizontalOptions="FillAndExpand" Margin="5"/>
+                            <Picker x:Name="pkModel" Title="Model" TitleColor="Red" HorizontalOptions="FillAndExpand" Margin="5"/>
+                        </StackLayout>
+                        <StackLayout x:Name="sfilterU" HorizontalOptions="FillAndExpand">
+                            <Entry x:Name="txtAd" Placeholder="Ad" PlaceholderColor="Red" HorizontalOptions="FillAndExpand" Margin="5"/>
+                            <Entry x:Name="txtSoyad" Placeholder="Soyad" PlaceholderColor="Red" HorizontalOptions="FillAndExpand" Margin="5"/>
+                        </StackLayout>
+                    </StackLayout>
+                </Border>
+                <StackLayout Orientation="Horizontal" Margin="5" Spacing="5">
+                    <Button Text="Detay Gör" HorizontalOptions="FillAndExpand" Clicked="Detay_Clicked"/>
+                    <Button Text="Aracı Gönder" HorizontalOptions="FillAndExpand" BackgroundColor="Green" Clicked="Bitir_Clicked"/>
+                </StackLayout>
+                <CollectionView x:Name="view" ItemsSource="{Binding ListSource}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BackgroundColor="{Binding BColor}" StrokeThickness="5">
+                                <StackLayout Orientation="Vertical" HorizontalOptions="Center">
+                                    <StackLayout Orientation="Horizontal" Padding="0,5,0,5" HorizontalOptions="CenterAndExpand">
+                                        <Label Text="{Binding Idno}" VerticalTextAlignment="Center" TextColor="Red"/>
+                                        <Label Text=" | "  VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding Plaka}" FontSize="20" FontAttributes="Bold"/>
+                                        <Label Text=" | "  VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding TotalPrice}" VerticalTextAlignment="Center" TextColor="Red" FontSize="20" FontAttributes="Bold"/>
+                                    </StackLayout>
+                                    <Label Text="{Binding AdSoyad}" VerticalTextAlignment="Center" TextColor="Red" FontSize="20" FontAttributes="Bold"/>
+                                    <Label Text="{Binding MarkaModel}" VerticalTextAlignment="Center" FontSize="20" FontAttributes="Bold"/>
+                                </StackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

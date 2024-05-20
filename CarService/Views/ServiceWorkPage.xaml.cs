@@ -79,7 +79,7 @@ public partial class ServiceWorkPage : ContentPage
             return;
         }
         LoadingIndicator.IsVisible = true;
-        var r = await CompanyWorkRequests.AddDetail(viewModel.CompanyWorkId, price, txtAciklama.Text);
+        var r = await CompanyWorkRequests.WorkDetail(0m, viewModel.CompanyWorkId, price, txtAciklama.Text);
         LoadingIndicator.IsVisible = false;
         if (r.Status)
         {
@@ -116,9 +116,20 @@ public partial class ServiceWorkPage : ContentPage
 
     private async void OK_Clicked(object sender, EventArgs e)
     {
-        if (LoadingIndicator.IsVisible || !(await DisplayAlert("Soru", "Seçil aracýn iþlemi sonlandýrýlacaktýr, devam etmek istiyor musunuz?", "YES", "NO")))
+        if (LoadingIndicator.IsVisible || viewModel.CompanyWorkId <= 0 || !(await DisplayAlert("Soru", "Seçil aracýn iþlemi sonlandýrýlacaktýr, devam etmek istiyor musunuz?", "YES", "NO")))
         {
             return;
+        }
+        LoadingIndicator.IsVisible = true;
+        var r = await CompanyWorkRequests.Status(viewModel.CompanyWorkId, "Y", "N");
+        LoadingIndicator.IsVisible = false;
+        if (r.Status)
+        {
+            txtAciklama.Text = "";
+            txtPrice.Text = "";
+            viewModel = new CompanyWorkViewModel();
+            BindingContext = viewModel;
+            await DisplayAlert("Bilgi", "Ýþlem baþarýlý", "OK");
         }
     }
 }

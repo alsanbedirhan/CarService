@@ -85,11 +85,20 @@
     <FlyoutItem IsVisible="{Binding IsCustomer}" Title="Araçlarım" Icon="icon_about.png">
         <ShellContent Route="MyCarListPage" ContentTemplate="{DataTemplate local:CarListPage}" />
     </FlyoutItem>
+    <FlyoutItem IsVisible="{Binding IsCustomer}" Title="İşlemlerim" Icon="icon_about.png">
+        <ShellContent Route="CustomerPastPage" ContentTemplate="{DataTemplate local:PastPage}" />
+    </FlyoutItem>
     <FlyoutItem IsVisible="{Binding IsNotCustomer}" Title="Araç Giriş" Icon="icon_about.png">
         <ShellContent Route="ServicePage" ContentTemplate="{DataTemplate local:ServicePage}" />
     </FlyoutItem>
     <FlyoutItem IsVisible="{Binding IsNotCustomer}" Title="Araç İşlemleri" Icon="icon_about.png">
         <ShellContent Route="ServiceWorkPage" ContentTemplate="{DataTemplate local:ServiceWorkPage}" />
+    </FlyoutItem>
+    <FlyoutItem IsVisible="{Binding IsAuthorized}" Title="İşlemi Bitmiş Araçlar" Icon="icon_about.png">
+        <ShellContent Route="CompanyWorkListPage" ContentTemplate="{DataTemplate local:CompanyWorkListPage}" />
+    </FlyoutItem>
+    <FlyoutItem IsVisible="{Binding IsNotCustomer}" Title="Geçmiş İşemler" Icon="icon_about.png">
+        <ShellContent Route="PastPage" ContentTemplate="{DataTemplate local:PastPage}" />
     </FlyoutItem>
     <FlyoutItem IsVisible="{Binding IsAuthorized}" Title="Personel Listesi" Icon="icon_about.png">
         <ShellContent Route="UsersPage" ContentTemplate="{DataTemplate local:UsersPage}" />

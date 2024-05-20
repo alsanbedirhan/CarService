@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CarService.Views.PastPage"
+             xmlns:vm="clr-namespace:CarService.ViewModels"
+             Title="Geçmiş">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="TEMİZLE" Clicked="Clear_Clicked" />
+        <ToolbarItem Text="YENİLE" Clicked="Search_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.BindingContext>
+        <vm:CompanyWorkListViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical">
+            <StackLayout Orientation="Vertical">
+                <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
+
+                <Border StrokeThickness="5" Padding="5" Margin="0,0,0,10">
+                    <StackLayout Orientation="Vertical">
+                        <StackLayout x:Name="sfilterC" HorizontalOptions="FillAndExpand">
+                            <Picker x:Name="pkMarka" Title="Marka" TitleColor="Red" SelectedIndexChanged="pkMarka_SelectedIndexChanged" HorizontalOptions="FillAndExpand" Margin="5"/>
+                            <Picker x:Name="pkModel" Title="Model" TitleColor="Red" HorizontalOptions="FillAndExpand" Margin="5"/>
+                        </StackLayout>
+                        <StackLayout x:Name="sfilterU" HorizontalOptions="FillAndExpand">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <Label Text="Başlangıç Tarihi: " VerticalTextAlignment="Center" TextColor="Red" Margin="5"/>
+                                <DatePicker x:Name="dtStart" HorizontalOptions="FillAndExpand" Margin="5"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <Label Text="Bitiş Tarihi: " VerticalTextAlignment="Center" TextColor="Red" Margin="5"/>
+                                <DatePicker x:Name="dtEnd" HorizontalOptions="FillAndExpand" Margin="5"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                </Border>
+                <CollectionView x:Name="view" ItemsSource="{Binding ListSource}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BackgroundColor="{Binding BColor}" StrokeThickness="5">
+                                <StackLayout Orientation="Vertical" HorizontalOptions="Center">
+                                    <StackLayout Orientation="Horizontal" Padding="0,5,0,5" HorizontalOptions="CenterAndExpand">
+                                        <Label Text="{Binding Idno}" VerticalTextAlignment="Center" TextColor="Red"/>
+                                        <Label Text=" | "  VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding Plaka}" FontSize="20" FontAttributes="Bold"/>
+                                        <Label Text=" | "  VerticalTextAlignment="Center"/>
+                                        <Label Text="{Binding TotalPrice}" VerticalTextAlignment="Center" TextColor="Red" FontSize="20" FontAttributes="Bold"/>
+                                    </StackLayout>
+                                    <Label Text="{Binding AdSoyad}" VerticalTextAlignment="Center" TextColor="Red" FontSize="20" FontAttributes="Bold"/>
+                                    <Label Text="{Binding MarkaModel}" VerticalTextAlignment="Center" FontSize="20" FontAttributes="Bold"/>
+                                </StackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

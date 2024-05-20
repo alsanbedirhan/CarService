@@ -1,4 +1,5 @@
 using CarService.Requests;
+using CarService.ViewModels;
 using CommunityToolkit.Maui.Views;
 using Request_API;
 
@@ -22,7 +23,7 @@ public partial class SearchCompanyWork : Popup
         var list = new List<SearchCompanyWorkList>();
         LoadingIndicator.IsVisible = true;
         var t = await ServiceRequests.SearchCompanyWork(pkMarka.SelectedItem is clsSearch marka && marka != null ? marka.Key : 0m,
-            pkModel.SelectedItem is clsSearch model && model != null ? model.Key : 0, txtPlaka.Text, txtAd.Text, txtSoyad.Text);
+            pkModel.SelectedItem is clsSearch model && model != null ? model.Key : 0m, txtPlaka.Text, txtAd.Text, txtSoyad.Text, "N", "N");
         LoadingIndicator.IsVisible = false;
         if (t.Status)
         {
