@@ -8,40 +8,50 @@
         <vm:CompanyWorkViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Margin="5" Spacing="5">
-            <Button Text="Araç Seç" Clicked="Sec_Clicked"/>
-            <Border StrokeThickness="5">
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Araç Sahibi: " VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="Red"/>
-                    <Label Text="{Binding AdSoyad}"/>
-                </StackLayout>
-            </Border>
-            <Border StrokeThickness="5">
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Araç Bilgileri: " VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="Red"/>
-                    <Label Text="{Binding AracBilgi}"/>
-                </StackLayout>
-            </Border>
-            <Border StrokeThickness="5" >
-                <StackLayout Orientation="Vertical">
+        <ScrollView Orientation="Vertical">
+            <StackLayout Orientation="Vertical" Margin="5" Spacing="5">
+                <Button Text="Araç Seç" Clicked="Sec_Clicked"/>
+                <Border StrokeThickness="5">
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Açıklama: " VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="Green"/>
-                        <Entry x:Name="txtAciklama" HorizontalOptions="FillAndExpand"/>
+                        <Label Text="Araç Sahibi: " VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="Red"/>
+                        <Label Text="{Binding AdSoyad}"/>
                     </StackLayout>
+                </Border>
+                <Border StrokeThickness="5">
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Ücret: " VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="Green"/>
-                        <Entry x:Name="txtPrice" Keyboard="Numeric" HorizontalOptions="FillAndExpand" MaxLength="14"/>
+                        <Label Text="Araç Bilgileri: " VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="Red"/>
+                        <Label Text="{Binding AracBilgi}"/>
                     </StackLayout>
+                </Border>
+                <Border StrokeThickness="5">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Toplam Ücret: " VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="Red"/>
+                        <Label Text="{Binding ToplamUcret}"/>
+                    </StackLayout>
+                </Border>
+                <StackLayout Orientation="Horizontal">
+                    <Border StrokeThickness="5" HorizontalOptions="FillAndExpand">
+                        <StackLayout Orientation="Vertical">
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Açıklama: " VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="Green"/>
+                                <Entry x:Name="txtAciklama" HorizontalOptions="FillAndExpand"/>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Ücret: " VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="Green"/>
+                                <Entry x:Name="txtPrice" Keyboard="Numeric" HorizontalOptions="FillAndExpand" MaxLength="14"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </Border>
+                    <Button Text="İşlem Bitti" HorizontalOptions="End" MaximumWidthRequest="100" MinimumWidthRequest="100" BackgroundColor="DarkMagenta" Margin="5" Clicked="OK_Clicked"/>
                 </StackLayout>
-            </Border>
-            
-            <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
-            
-            <StackLayout Orientation="Horizontal" Spacing="5" Margin="5">
-                <Button Text="Ekle" HorizontalOptions="FillAndExpand" BackgroundColor="Green" Clicked="Ekle_Clicked"/>
-                <Button Text="Çıkar" HorizontalOptions="FillAndExpand" BackgroundColor="Red" Clicked="Cikar_Clicked"/>
-            </StackLayout>
-            <ScrollView Orientation="Vertical">
+
+                <ActivityIndicator HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" IsVisible="False" IsRunning="True" Color="Red" Scale="2" x:Name="LoadingIndicator"/>
+
+                <StackLayout Orientation="Horizontal" Spacing="5" Margin="5">
+                    <Button Text="Ekle" HorizontalOptions="FillAndExpand" BackgroundColor="Green" Clicked="Ekle_Clicked"/>
+                    <Button Text="Çıkar" HorizontalOptions="FillAndExpand" BackgroundColor="Red" Clicked="Cikar_Clicked"/>
+                </StackLayout>
+
                 <CollectionView x:Name="view" ItemsSource="{Binding ListSource}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
@@ -62,7 +72,8 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-            </ScrollView>
-        </StackLayout>
+
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

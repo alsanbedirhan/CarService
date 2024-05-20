@@ -35,18 +35,15 @@ public partial class ServiceWorkPage : ContentPage
     }
     private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        viewModel.ListSource.ToList().ForEach(x => x.BColor = Color.FromArgb("#F0F8FF"));
         if (view.SelectedItem is CompanyWorkDetail detail && detail != null)
         {
             detail.BColor = Color.FromArgb("#FF9400");
         }
-        else
-        {
-            viewModel.ListSource.ToList().ForEach(x => x.BColor = Color.FromArgb("#F0F8FF"));
-        }
     }
     async Task SendRequest()
     {
-        viewModel.ListSource.Clear();
+        viewModel.ClearRows();
         if (viewModel.CompanyWorkId <= 0)
         {
             return;
@@ -56,12 +53,12 @@ public partial class ServiceWorkPage : ContentPage
         LoadingIndicator.IsVisible = false;
         if (r.Status)
         {
-            r.Data.ForEach(viewModel.ListSource.Add);
+            r.Data.ForEach(viewModel.AddRow);
         }
     }
     private async void Sec_Clicked(object sender, EventArgs e)
     {
-        viewModel.ListSource.Clear();
+        viewModel.ClearRows();
         var popup = new SearchCompanyWork();
         var result = await this.ShowPopupAsync(popup);
         if (result != null && result is SearchCompanyWorkList search && search != null)
@@ -86,6 +83,8 @@ public partial class ServiceWorkPage : ContentPage
         LoadingIndicator.IsVisible = false;
         if (r.Status)
         {
+            txtAciklama.Text = "";
+            txtPrice.Text = "";
             await DisplayAlert("Bilgi", "Ýþlem baþarýlý", "OK");
             await SendRequest();
         }
@@ -108,8 +107,18 @@ public partial class ServiceWorkPage : ContentPage
         LoadingIndicator.IsVisible = false;
         if (r.Status)
         {
+            txtAciklama.Text = "";
+            txtPrice.Text = "";
             await DisplayAlert("Bilgi", "Ýþlem baþarýlý", "OK");
             await SendRequest();
+        }
+    }
+
+    private async void OK_Clicked(object sender, EventArgs e)
+    {
+        if (LoadingIndicator.IsVisible || !(await DisplayAlert("Soru", "Seçil aracýn iþlemi sonlandýrýlacaktýr, devam etmek istiyor musunuz?", "YES", "NO")))
+        {
+            return;
         }
     }
 }
