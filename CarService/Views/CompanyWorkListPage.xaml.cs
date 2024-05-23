@@ -1,5 +1,6 @@
 using CarService.Requests;
 using CarService.ViewModels;
+using CommunityToolkit.Maui.Views;
 using Request_API;
 
 namespace CarService.Views;
@@ -93,12 +94,14 @@ public partial class CompanyWorkListPage : ContentPage
             detail.BColor = Color.FromArgb("#FF9400");
         }
     }
-    private void Detay_Clicked(object sender, EventArgs e)
+    private async void Detay_Clicked(object sender, EventArgs e)
     {
         if (LoadingIndicator.IsVisible || view.SelectedItem is not SearchCompanyWorkList detail || detail == null)
         {
             return;
         }
+        var popup = new DetailPopUp(detail.Idno);
+        await this.ShowPopupAsync(popup);
     }
     private async void Bitir_Clicked(object sender, EventArgs e)
     {

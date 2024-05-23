@@ -1,5 +1,6 @@
 using CarService.Requests;
 using CarService.ViewModels;
+using CommunityToolkit.Maui.Views;
 using Request_API;
 
 namespace CarService.Views;
@@ -92,12 +93,13 @@ public partial class PastPage : ContentPage
         }
         pkModel.ItemsSource = await CarListRequests.GetMakeModels(new List<decimal> { search.Key });
     }
-    private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        viewModel.ListSource.ToList().ForEach(x => x.BColor = Color.FromArgb("#F0F8FF"));
         if (view.SelectedItem is SearchCompanyWorkList detail && detail != null)
         {
-            detail.BColor = Color.FromArgb("#FF9400");
+            var popup = new DetailPopUp(detail.Idno);
+            await this.ShowPopupAsync(popup);
+            view.SelectedItem = null;
         }
     }
 }

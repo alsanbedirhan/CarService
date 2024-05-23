@@ -113,6 +113,8 @@ public partial class UserWorkPage : ContentPage
             await DisplayAlert("Bilgi", "Ýþlem baþarýlý", "OK");
             if (Parameters.ActiveUser?.UserType == "C")
             {
+                Parameters.ActiveUser.Ad = txtAd.Text;
+                Parameters.ActiveUser.Soyad = txtSoyad.Text;
                 await Shell.Current.GoToAsync("//AboutPage");
             }
             else

@@ -97,7 +97,7 @@
     <FlyoutItem IsVisible="{Binding IsAuthorized}" Title="İşlemi Bitmiş Araçlar" Icon="icon_about.png">
         <ShellContent Route="CompanyWorkListPage" ContentTemplate="{DataTemplate local:CompanyWorkListPage}" />
     </FlyoutItem>
-    <FlyoutItem IsVisible="{Binding IsNotCustomer}" Title="Geçmiş İşemler" Icon="icon_about.png">
+    <FlyoutItem IsVisible="{Binding IsNotCustomer}" Title="Geçmiş İşlemler" Icon="icon_about.png">
         <ShellContent Route="PastPage" ContentTemplate="{DataTemplate local:PastPage}" />
     </FlyoutItem>
     <FlyoutItem IsVisible="{Binding IsAuthorized}" Title="Personel Listesi" Icon="icon_about.png">
